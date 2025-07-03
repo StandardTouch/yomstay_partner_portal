@@ -18,13 +18,13 @@ import { SidebarHeader, useSidebar } from "./ui/sidebar";
 // Menu items.
 const items = [
   {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: Home,
+    title: "Users",
+    url: "#",
+    icon: User,
   },
   {
-    title: "Hotel",
-    url: "/hotel",
+    title: "Hotels",
+    url: "#",
     icon: Hotel,
   },
   
@@ -38,17 +38,21 @@ export function AppSidebar() {
     openMobile,
     setOpenMobile,
     isMobile,
-  
     toggleSidebar,
   } = useSidebar();
 
-
+  // When on mobile, ensure sidebar is open by default
+  useEffect(() => {
+    if (isMobile) {
+      setOpenMobile(true);
+    }
+  }, [isMobile, setOpenMobile]);
   return (
-    <Sidebar collapsible="offcanvas">
+    <Sidebar collapsible="icon">
       <SidebarContent>
 
         {/* sidebar header  */}
-        <SidebarHeader className="flex mt-5 items-center space-x-2 px-3 py-2">
+        <SidebarHeader className="flex items-center space-x-2 px-3 py-2">
   <FaHotel  className="w-5 h-5" />
   {open && <span className="whitespace-nowrap">Yomstay</span>}
 </SidebarHeader>
