@@ -3,6 +3,7 @@ import { useUser } from "@clerk/clerk-react";
 import App from "./App";
 import SignInPage from "./pages/signIn_page";
 import Spinner from "./components/Spinner";
+import HotelPage from "./pages/hotelpage";
 
 // A wrapper component to protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -44,6 +45,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <App />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/hotel",
+    element: (
+      <ProtectedRoute>
+        <HotelPage />
       </ProtectedRoute>
     ),
   },
