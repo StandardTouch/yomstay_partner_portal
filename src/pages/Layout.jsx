@@ -23,7 +23,7 @@ function LayoutContent({ children }) {
             <FaBars className="w-5 h-5 text-white" />
           </button>
           <div className="text-1.5xl md:text-3xl font-semibold">
-            Welcome to Partner Portal
+           Partner Portal
           </div>
           <UserButton signOutRedirectUrl="/login" />
         </header>
