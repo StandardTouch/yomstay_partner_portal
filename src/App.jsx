@@ -1,8 +1,13 @@
 import Layout from './pages/Layout';
 import './App.css';
+import DashboardPage from './pages/dashboard';
 
 function App() {
-  return <Layout />;
+  return (
+  
+      <DashboardPage />
+   
+  );
 }
 
 export default App;
