@@ -178,8 +178,8 @@ const Dashboard = () => {
 
 export default function DashboardPage() {
   return (
-    <SidebarProvider>
-      <AppSidebar />
+ 
+     <SidebarProvider>
       <Dashboard />
     </SidebarProvider>
   );

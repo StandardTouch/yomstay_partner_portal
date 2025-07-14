@@ -44,7 +44,7 @@ export function AppSidebar() {
 
 
   return (
-    <Sidebar collapsible="offcanvas">
+    <Sidebar className="z-50" collapsible="icon">
       <SidebarContent>
 
         {/* sidebar header  */}
