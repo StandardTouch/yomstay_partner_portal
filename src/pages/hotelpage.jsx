@@ -25,7 +25,8 @@ import {
   updateStarRating,
   updateAmenityName,
   updatePrimaryImage,
-  updateHotelCountry
+  updateHotelCountry,
+  updateHotelState
 } from "../features/hoteldetails/hoteldetails_slice";
 import Layout from "./Layout";
 import { SidebarProvider } from "../components/ui/sidebar";
@@ -48,6 +49,8 @@ const Hotelpage = () => {
   const inputNameRef = useRef(null);
   const inputDescriptionRef = useRef(null);
   const inputLocationRef = useRef(null);
+  const [selectedCountryId, setSelectedCountryId] = useState(null);
+  const [states, setStates] = useState([]);
 
   useEffect(() => {
   if (inputRef.current) {
@@ -183,12 +186,22 @@ const handleCancelAmenity = () => {
     axios.get("https://api.yomstay.com/api/v1/location/countries")
       .then(res => setCountries(res.data.data || []))
       .catch(() => setCountries([]));
+
+axios.get(`https://api.yomstay.com/api/v1/location/states?countryId=${selectedCountryId}`).then(res => {
+      setStates(res.data.data || []);
+    }).catch(() => setStates([]));
+
   }, []);
 
   // Prepare country options for react-dropdown
   const countryOptions = countries.map(country => ({
     value: country.name,
     label: country.name
+  }));
+
+  const stateOptions = states.map(state => ({ 
+    value: state.name,
+    label: state.name
   }));
 
   return (
@@ -328,14 +341,33 @@ const handleCancelAmenity = () => {
     <Dropdown
       options={countryOptions}
       
-      onChange={option => dispatch(updateHotelCountry(option.value))}
+      onChange={option => dispatch(updateHotelCountry(option.value)) && setSelectedCountryId(option.value)}
+      // onChange={option => setSelectedCountryId(option.value)}
       value={hotel.hotelCountry}
       placeholder="Select Country"
       controlClassName="w-full p-2 border rounded-md mb-2 text-sm bg-white"
       menuClassName="max-h-32 overflow-y-auto text-sm"
       arrowClassName="text-sm"
-      className="mb-2"
+      className=""
     />
+    
+    {/* hotel state */}
+    <div className="text-lg border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
+      State
+    </div>
+    <Dropdown
+      options={stateOptions}
+      onChange={option => dispatch(updateHotelState(option.value))}
+      value={hotel.hotelState}
+      placeholder="Select State"
+      controlClassName="w-full p-2 border rounded-md mb-2 text-sm bg-white"
+      menuClassName="max-h-32 overflow-y-auto text-sm"
+      arrowClassName="text-sm"
+      className=""
+    />
+    
+   
+    
   </div>
 )}
 
