@@ -4,9 +4,9 @@ const initialState = {
   hotelName: "Aloft Harlem",
   hotelDescription: "Down the street from the 125th Street subway station...",
   hotelLocation: "New York, USA",
-  hotelCountry: "USA",  // New state for country
-  hotelState: "New York", // New state for state
-  hotelCity: "New York",  // New state for city
+  hotelCountry: "",  // New state for country
+  hotelState: "", // New state for state
+  hotelCity: "",  // New state for city
   hotelPostalCode: "10027", 
   
   primaryImage: null,
@@ -63,18 +63,24 @@ export const hotelSlice = createSlice({
         image.id === action.payload.id ? { ...image, ...action.payload } : image
       );
     },
-    addAmenity: (state, action) => {
-      const newAmenity = { id: nanoid(), name: action.payload };
-      state.amenities.push(newAmenity);
-    },
+  addAmenity: (state, action) => {
+  const newAmenity = { 
+    id: action.payload.id, 
+    name: action.payload.name || "New Amenity" // Add default name
+  };
+  state.amenities.push(newAmenity);
+},
     removeAmenity: (state, action) => {
       state.amenities = state.amenities.filter(amenity => amenity.id !== action.payload);
     },
-    updateAmenity: (state, action) => {
-      state.amenities = state.amenities.map(amenity =>
-        amenity.id === action.payload.id ? { ...amenity, name: action.payload.name } : amenity
-      );
-    },
+   updateAmenityName: (state, action) => {
+  const { id, name } = action.payload;
+  const amenity = state.amenities.find((a) => a.id === id);
+  if (amenity) {
+    amenity.name = name;
+  }
+},
+
     updateStarRating: (state, action) => {
       state.starRating = action.payload;
     },
