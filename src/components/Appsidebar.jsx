@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { Calendar, Home, Hotel, Inbox, Search, Settings, User } from "lucide-react";
 import { FaHotel } from "react-icons/fa6";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 
 import {
@@ -14,6 +16,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { SidebarHeader, useSidebar } from "./ui/sidebar";
+
+
 
 // Menu items.
 const items = [
@@ -61,10 +65,10 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link to={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

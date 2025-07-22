@@ -7,8 +7,8 @@ import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
+// import Dropdown from "react-dropdown";
+// import "react-dropdown/style.css";
 
 import { MdOutlineStarOutline } from "react-icons/md";
 import { MdOutlineStarPurple500 } from "react-icons/md";
@@ -28,22 +28,24 @@ import {
   updateHotelCountry,
   updateHotelState,
   updateHotelCity,
+  updateHotelPostalCode,
 } from "../features/hoteldetails/hoteldetails_slice";
 import Layout from "./Layout";
 import { SidebarProvider } from "../components/ui/sidebar";
 import { AppSidebar } from "../components/Appsidebar";
 import { Stepper, Step } from "react-form-stepper";
 import { nanoid } from "@reduxjs/toolkit";
+import { Dropdown } from "../components/dropdown"; // Import your new Dropdown
 
 const Hotelpage = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [editingField, setEditingField] = useState(null); // Track which field is being edited
+  const [activeInteractive, setActiveInteractive] = useState(null); // "hotelName", "hotelDescription", "hotelLocation", "amenity:{id}", "countryDropdown", "stateDropdown", "cityDropdown"
   const [newHotelName, setNewHotelName] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newLocation, setNewLocation] = useState("");
+  const [newPostalCode, setNewPostalCode] = useState("");
   const [newAmenityName, setNewAmenityName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isEditingAmenity, setIsEditingAmenity] = useState(false);
   const [countries, setCountries] = useState([]);
   const inputRef = useRef(null);
   const hotelDescriptionRef = useRef(null);
@@ -51,6 +53,7 @@ const Hotelpage = () => {
   const inputNameRef = useRef(null);
   const inputDescriptionRef = useRef(null);
   const inputLocationRef = useRef(null);
+  const inputPostalCodeRef = useRef(null);
   const [selectedCountryId, setSelectedCountryId] = useState(null);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -60,31 +63,39 @@ const Hotelpage = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isEditingAmenity]);
+  }, [activeInteractive]);
 
   useEffect(() => {
-    if (editingField === "hotelName" && inputNameRef.current) {
+    if (activeInteractive === "hotelName" && inputNameRef.current) {
       inputNameRef.current.focus();
       inputNameRef.current.setSelectionRange(
         inputNameRef.current.value.length,
         inputNameRef.current.value.length
       );
     }
-    if (editingField === "hotelDescription" && inputDescriptionRef.current) {
+    if (activeInteractive === "hotelDescription" && inputDescriptionRef.current) {
       inputDescriptionRef.current.focus();
       inputDescriptionRef.current.setSelectionRange(
         inputDescriptionRef.current.value.length,
         inputDescriptionRef.current.value.length
       );
     }
-    if (editingField === "hotelLocation" && inputLocationRef.current) {
+    if (activeInteractive === "hotelLocation" && inputLocationRef.current) {
       inputLocationRef.current.focus();
       inputLocationRef.current.setSelectionRange(
         inputLocationRef.current.value.length,
         inputLocationRef.current.value.length
       );
     }
-  }, [editingField]);
+    if (activeInteractive === "hotelPostalCode" && inputPostalCodeRef.current) {
+    inputPostalCodeRef.current.focus();
+    inputPostalCodeRef.current.setSelectionRange(
+      inputPostalCodeRef.current.value.length,
+      inputPostalCodeRef.current.value.length
+    );
+  }
+
+  }, [activeInteractive]);
 
   useEffect(() => {
     if (selectedStateId) {
@@ -170,67 +181,64 @@ const Hotelpage = () => {
 
   const handleHotelNameChange = () => {
     dispatch(updateHotelName(newHotelName));
-    setEditingField(null); // Close edit mode
+    setActiveInteractive(null);
   };
 
   const handleHotelDescriptionChange = () => {
     dispatch(updateHotelDescription(newDescription));
-    setEditingField(null); // Close edit mode
+    setActiveInteractive(null);
   };
 
   const handleHotelLocationChange = () => {
     dispatch(updateHotelLocation(newLocation));
-    setEditingField(null); // Close edit mode
+    setActiveInteractive(null);
   };
 
-const handleAddAmenity = () => {
-  console.log("Adding new amenity");
-  
-  const newId = nanoid();
-  dispatch(addAmenity({ id: newId, name: "New Amenity" })); // Add with default name
-  setNewAmenityName("New Amenity"); // Set initial value
-  setIsEditingAmenity(newId); // Set editing mode for the new amenity
-
-  // Focus after short delay (after rendering)
-  setTimeout(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select(); // Optional: select the text for easy editing
-    }
-  }, 0);
-};
-
-const handleSaveAmenity = (id) => {
-  if (newAmenityName.trim()) { // Only save if not empty
-    dispatch(updateAmenityName({ id, name: newAmenityName.trim() }));
-    setIsEditingAmenity(false);
+  const handleHotelPostalCodeChange = () => {
+    dispatch(updateHotelPostalCode(newPostalCode));
+    setActiveInteractive(null);
   }
-};
 
+  const handleAddAmenity = () => {
+    const newId = nanoid();
+    dispatch(addAmenity({ id: newId, name: "New Amenity" }));
+    setNewAmenityName("New Amenity");
+    setActiveInteractive(`amenity:${newId}`);
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.select();
+      }
+    }, 0);
+  };
 
-const handleEditAmenity = (id, name) => {
-  setIsEditingAmenity(id);
-  setNewAmenityName(name);
-
-  setTimeout(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
+  const handleSaveAmenity = (id) => {
+    if (newAmenityName.trim()) {
+      dispatch(updateAmenityName({ id, name: newAmenityName.trim() }));
+      setActiveInteractive(null);
     }
-  }, 0);
-};
+  };
 
+  const handleEditAmenity = (id, name) => {
+    setActiveInteractive(`amenity:${id}`);
+    setNewAmenityName(name);
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 0);
+  };
 
-const handleCancelAmenity = () => {
-  // If it's a new amenity with empty name, remove it
-  if (newAmenityName.trim() === "") {
-    const newAmenity = hotel.amenities.find(a => a.id === isEditingAmenity);
-    if (newAmenity && newAmenity.name === "") {
-      dispatch(removeAmenity(isEditingAmenity));
+  const handleCancelAmenity = () => {
+    if (newAmenityName.trim() === "") {
+      const newAmenity = hotel.amenities.find(a => a.id === activeInteractive?.split(":")[1]);
+      if (newAmenity && newAmenity.name === "") {
+        dispatch(removeAmenity(newAmenity.id));
+      }
     }
-  }
-  setIsEditingAmenity(false);
-  setNewAmenityName("");
-};
+    setActiveInteractive(null);
+    setNewAmenityName("");
+  };
 
   const handleStarRatingChange = (rating) => {
     dispatch(updateStarRating(rating));
@@ -252,11 +260,14 @@ const handleCancelAmenity = () => {
     dispatch(removeHotelImage(id));
   };
 
+  // Replace all setEditingField and setIsEditingAmenity usages with setActiveInteractive
+
   const handleEditField = (field) => {
-    setEditingField(field);
+    setActiveInteractive(field); // e.g. "hotelName"
     if (field === "hotelName") setNewHotelName(hotel.hotelName);
     if (field === "hotelDescription") setNewDescription(hotel.hotelDescription);
     if (field === "hotelLocation") setNewLocation(hotel.hotelLocation);
+    if (field === "hotelpostalCode") setNewPostalCode(hotel.hotelPostalCode);
   };
 
   // Prepare country options for react-dropdown
@@ -270,10 +281,11 @@ const handleCancelAmenity = () => {
     label: state.name,
   }));
 
-  const cityOptions = cities.map((city) => ({
-    value: city.name,
-    label: city.name,
-  }));
+const cityOptions = cities.map((city) => ({
+  value: city.id, // Use city.id as value
+  label: city.name,
+}));
+
 
   // Modify state dropdown onChange to store state ID
   const handleStateChange = (option) => {
@@ -290,7 +302,7 @@ const handleCancelAmenity = () => {
           <Step label="Hotel Info" />
           <Step label="Hotel Images" />
           <Step label="Amenities" />
-          <Step label="Star Rating" />
+          {/* <Step label="Star Rating" /> */}
         </Stepper>
 
         {/* Step 1: Hotel Info */}
@@ -299,7 +311,7 @@ const handleCancelAmenity = () => {
             {/* Hotel Name */}
             <div className="text-lg border-[var(--color-border)] py-2 flex items-center justify-between md:text-xl font-semibold text-[var(--color-text)]">
               Name
-              {editingField === "hotelName" ? (
+              {activeInteractive === "hotelName" ? (
                 <div className="flex gap-2">
                   <button
                     className="bg-green-100 text-green-600 px-3 py-1 rounded-md text-sm"
@@ -309,7 +321,7 @@ const handleCancelAmenity = () => {
                   </button>
                   <button
                     className="bg-red-100 text-red-600 px-3 py-1 rounded-md text-sm"
-                    onClick={() => setEditingField(null)}
+                    onClick={() => setActiveInteractive(null)}
                   >
                     Cancel
                   </button>
@@ -321,7 +333,7 @@ const handleCancelAmenity = () => {
                 />
               )}
             </div>
-            {editingField === "hotelName" ? (
+            {activeInteractive === "hotelName" ? (
               <input
                 type="text"
                 ref={inputNameRef}
@@ -338,7 +350,7 @@ const handleCancelAmenity = () => {
             {/* Hotel Description */}
             <div className="text-lg border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
               Description
-              {editingField === "hotelDescription" ? (
+              {activeInteractive === "hotelDescription" ? (
                 <div className="flex gap-2">
                   <button
                     className="bg-green-100 text-green-600 px-3 py-1 rounded-md text-sm"
@@ -348,7 +360,7 @@ const handleCancelAmenity = () => {
                   </button>
                   <button
                     className="bg-red-100 text-red-600 px-3 py-1 rounded-md text-sm"
-                    onClick={() => setEditingField(null)}
+                    onClick={() => setActiveInteractive(null)}
                   >
                     Cancel
                   </button>
@@ -360,7 +372,7 @@ const handleCancelAmenity = () => {
                 />
               )}
             </div>
-            {editingField === "hotelDescription" ? (
+            {activeInteractive === "hotelDescription" ? (
               <textarea
                 ref={inputDescriptionRef}
                 value={newDescription}
@@ -373,10 +385,128 @@ const handleCancelAmenity = () => {
               </div>
             )}
 
-            {/* Hotel Location */}
-            <div className="text-lg border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
+          
+
+
+            {/* city country and state dropdowns */}
+
+          <div className="flex flex-col md:flex-row gap-4 items-start mt-4">
+  {/* Country */}
+  <div className="flex-1 w-full">
+    <div className="text-lg font-semibold text-[var(--color-text)] mb-1">
+      Country
+    </div>
+    <Dropdown
+      options={countryOptions}
+      value={selectedCountryId}
+      onChange={(option) => {
+        const selectedCountry = countries.find((c) => c.id === option.value);
+        dispatch(updateHotelCountry(selectedCountry.name));
+        setSelectedCountryId(selectedCountry.id);
+        dispatch(updateHotelState(""));
+        setSelectedStateId(null);
+        dispatch(updateHotelCity(""));
+        setCities([]);
+      }}
+      placeholder="Select Country"
+      disabled={false}
+      onFocus={() => setActiveInteractive("countryDropdown")}
+      onBlur={() => setActiveInteractive(null)}
+      fetchUrl="https://api.yomstay.com/api/v1/location/countries"
+      searchParam="search"
+    />
+  </div>
+
+  {/* State */}
+  <div className="flex-1 w-full">
+    <div className="text-lg font-semibold text-[var(--color-text)] mb-1">
+      State
+    </div>
+    <Dropdown
+      options={stateOptions}
+      value={selectedStateId}
+      onChange={(option) => {
+        const selectedState = states.find((s) => s.id === option.value);
+        dispatch(updateHotelState(selectedState.name));
+        setSelectedStateId(selectedState.id);
+        dispatch(updateHotelCity(""));
+      }}
+      placeholder="Select State"
+      disabled={!selectedCountryId}
+      onFocus={() => setActiveInteractive("stateDropdown")}
+      onBlur={() => setActiveInteractive(null)}
+      fetchUrl="https://api.yomstay.com/api/v1/location/states"
+      searchParam="search"
+      idParam="countryId"
+      idValue={selectedCountryId}
+    />
+  </div>
+
+  {/* City */}
+  <div className="flex-1 w-full">
+    <div className="text-lg font-semibold text-[var(--color-text)] mb-1">
+      City
+    </div>
+    <Dropdown
+      options={cityOptions}
+      value={hotel.hotelCity}
+      onChange={(option) => dispatch(updateHotelCity(option.label))}
+      placeholder="Select City"
+      disabled={!selectedStateId && !selectedCountryId}
+      onFocus={() => setActiveInteractive("cityDropdown")}
+      onBlur={() => setActiveInteractive(null)}
+      fetchUrl="https://api.yomstay.com/api/v1/location/cities"
+      searchParam="search"
+      idParam={selectedStateId ? "stateId" : "countryId"}
+      idValue={selectedStateId || selectedCountryId}
+    />
+  </div>
+</div>
+
+  {/* Hotel Postal code */}
+            {/* Hotel Postal Code - Same as Location */}
+<div className="text-lg border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
+  Postal Code
+  {activeInteractive === "hotelPostalCode" ? (  // Changed to "hotelPostalCode"
+    <div className="flex gap-2">
+      <button
+        className="bg-green-100 text-green-600 px-3 py-1 rounded-md text-sm"
+        onClick={handleHotelPostalCodeChange}  // Separate save function for postal code
+      >
+        Save
+      </button>
+      <button
+        className="bg-red-100 text-red-600 px-3 py-1 rounded-md text-sm"
+        onClick={() => setActiveInteractive(null)}
+      >
+        Cancel
+      </button>
+    </div>
+  ) : (
+    <FaRegEdit
+      className="w-5 h-5 cursor-pointer hover:scale-125"
+      onClick={() => handleEditField("hotelPostalCode")}  // Trigger edit mode for postal code
+    />
+  )}
+</div>
+{activeInteractive === "hotelPostalCode" ? (
+  <input
+    type="text"
+    ref={inputPostalCodeRef}
+    value={newPostalCode}
+    onChange={(e) => setNewPostalCode(e.target.value)}
+    className="w-full p-2 border rounded-md"
+  />
+) : (
+  <div className="text-base border rounded px-2 py-2 text-[var(--color-text)]">
+    {hotel.hotelPostalCode}
+  </div>
+)}
+
+  {/* Hotel Location */}
+            <div className="text-lg  border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
               Location
-              {editingField === "hotelLocation" ? (
+              {activeInteractive === "hotelLocation" ? (
                 <div className="flex gap-2">
                   <button
                     className="bg-green-100 text-green-600 px-3 py-1 rounded-md text-sm"
@@ -386,7 +516,7 @@ const handleCancelAmenity = () => {
                   </button>
                   <button
                     className="bg-red-100 text-red-600 px-3 py-1 rounded-md text-sm"
-                    onClick={() => setEditingField(null)}
+                    onClick={() => setActiveInteractive(null)}
                   >
                     Cancel
                   </button>
@@ -398,7 +528,7 @@ const handleCancelAmenity = () => {
                 />
               )}
             </div>
-            {editingField === "hotelLocation" ? (
+            {activeInteractive === "hotelLocation" ? (
               <textarea
                 ref={inputLocationRef}
                 value={newLocation}
@@ -406,62 +536,27 @@ const handleCancelAmenity = () => {
                 className="w-full p-2 border rounded-md"
               />
             ) : (
-              <div className="text-base border rounded px-2 py-2 text-[var(--color-text)]">
+              <div className="text-base  border rounded px-2 py-2 text-[var(--color-text)]">
                 {hotel.hotelLocation}
               </div>
             )}
 
-            {/* Hotel Country */}
-            <div className="text-lg border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
-              Country
+ <div className="text-lg border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
+              Star Rating
             </div>
-            <Dropdown
-              options={countryOptions}
-              onChange={(option) => {
-                // Find the selected country object
-                const selectedCountry = countries.find(
-                  (c) => c.id === option.value
-                );
-                // Update both country name and ID
-                dispatch(updateHotelCountry(selectedCountry.name));
-                setSelectedCountryId(selectedCountry.id);
-              }}
-              value={hotel.hotelCountry}
-              placeholder="Select Country"
-              controlClassName="w-full p-2 border rounded-md mb-2 text-sm bg-white"
-              menuClassName="max-h-32 overflow-y-auto text-sm"
-              arrowClassName="text-sm"
-            />
+            <select
+              value={hotel.starRating}
+              onChange={(e) => handleStarRatingChange(Number(e.target.value))}
+              className="text-base  border rounded px-2 py-2 text-[var(--color-text)]"
+            >
+              {[1, 2, 3, 4, 5].map((n) => (
+                <option key={n} value={n}>
+                  {n} Stars
+                </option>
+              ))}
+            </select>
 
-            {/* Hotel State */}
-            <div className="text-lg border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
-              State
-            </div>
-            <Dropdown
-              options={stateOptions}
-              onChange={handleStateChange}
-              value={hotel.hotelState}
-              placeholder="Select State"
-              controlClassName="w-full p-2 border rounded-md mb-2 text-sm bg-white"
-              menuClassName="max-h-32 overflow-y-auto text-sm"
-              arrowClassName="text-sm"
-              disabled={!selectedCountryId}
-            />
 
-            {/* Hotel City */}
-            <div className="text-lg border-[var(--color-border)] flex items-center justify-between md:text-xl font-semibold py-2 text-[var(--color-text)]">
-              City
-            </div>
-            <Dropdown
-              options={cityOptions}
-              onChange={(option) => dispatch(updateHotelCity(option.value))}
-              value={hotel.hotelCity}
-              placeholder="Select City"
-              controlClassName="w-full p-2 border rounded-md mb-2 text-sm bg-white"
-              menuClassName="max-h-32 overflow-y-auto text-sm"
-              arrowClassName="text-sm"
-              disabled={!selectedStateId && !selectedCountryId}
-            />
           </div>
         )}
 
@@ -559,26 +654,23 @@ const handleCancelAmenity = () => {
 
             <div className="flex flex-col gap-2">
               {hotel.amenities.map((amenity) => (
-               <div
-    key={amenity.id}
-    className="flex items-center justify-between px-4 py-2 border rounded-md bg-white"
-  >
-    {isEditingAmenity === amenity.id ? (
-      <input
-        type="text"
-        ref={inputRef}
-        value={newAmenityName}
-        onChange={(e) => setNewAmenityName(e.target.value)}
-        className="w-full p-2 border rounded-md mr-2"
-      />
-    ) : (
-      <div className="text-[var(--color-text)] text-base font-medium">
-        {amenity.name}
-      </div>
+                <div key={amenity.id} className="flex items-center justify-between px-4 py-2 border rounded-md bg-white">
+                  {activeInteractive === `amenity:${amenity.id}` ? (
+                    <input
+                      type="text"
+                      ref={inputRef}
+                      value={newAmenityName}
+                      onChange={(e) => setNewAmenityName(e.target.value)}
+                      className="w-full p-2 border rounded-md mr-2"
+                    />
+                  ) : (
+                    <div className="text-[var(--color-text)] text-base font-medium">
+                      {amenity.name}
+                    </div>
                   )}
 
                   <div className="flex gap-2 items-center ml-2">
-                    {isEditingAmenity === amenity.id ? (
+                    {activeInteractive === `amenity:${amenity.id}` ? (
                       <>
                         <button
                           onClick={() => handleSaveAmenity(amenity.id)}
@@ -616,26 +708,6 @@ const handleCancelAmenity = () => {
           </div>
         )}
 
-        {/* Step 4: Star Rating */}
-        {activeStep === 3 && (
-          <div className="bg-[var(--color-bg-card)] shadow-md rounded-lg px-4 py-4 mb-4 border border-[var(--color-border)]">
-            <div className="text-lg md:text-xl font-semibold text-[var(--color-text)]">
-              Star Rating
-            </div>
-            <select
-              value={hotel.starRating}
-              onChange={(e) => handleStarRatingChange(Number(e.target.value))}
-              className="border rounded px-2 py-1"
-            >
-              {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>
-                  {n} Stars
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-
         {/* Navigation buttons */}
         <div className="flex justify-between">
           <button
@@ -645,13 +717,22 @@ const handleCancelAmenity = () => {
           >
             Back
           </button>
-          <button
-            onClick={handleNext}
-            disabled={activeStep === 3}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Next
-          </button>
+         {activeStep === 2 ? (
+  <button
+    // onClick={}
+    className="bg-blue-500 text-white px-4 py-2 rounded"
+  >
+    Submit
+  </button>
+) : (
+  <button
+    onClick={handleNext}
+    className="bg-blue-500 text-white px-4 py-2 rounded"
+  >
+    Next
+  </button>
+)}
+
         </div>
       </div>
     </Layout>
