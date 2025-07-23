@@ -6,6 +6,7 @@ import { router } from './routes';  // Make sure you're importing the correct ro
 import { Provider } from 'react-redux';
 import { store } from './app/store';  // Import your Redux store
 import './index.css';
+import { ThemeProvider } from './components/themeprovider';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!PUBLISHABLE_KEY) {
@@ -14,11 +15,13 @@ if (!PUBLISHABLE_KEY) {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
     {/* Wrap both ClerkProvider and Redux Provider */}
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
     </ClerkProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
-import { Calendar, Home, Hotel, Inbox, Search, Settings, User } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  Hotel,
+  Inbox,
+  Search,
+  Settings,
+  User,
+} from "lucide-react";
 import { FaHotel } from "react-icons/fa6";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
+import { MdClose } from "react-icons/md";
 
 import {
   Sidebar,
@@ -17,8 +25,6 @@ import {
 } from "@/components/ui/sidebar";
 import { SidebarHeader, useSidebar } from "./ui/sidebar";
 
-
-
 // Menu items.
 const items = [
   {
@@ -31,7 +37,6 @@ const items = [
     url: "/hotel",
     icon: Hotel,
   },
-  
 ];
 
 export function AppSidebar() {
@@ -42,20 +47,41 @@ export function AppSidebar() {
     openMobile,
     setOpenMobile,
     isMobile,
-  
+
     toggleSidebar,
   } = useSidebar();
-
 
   return (
     <Sidebar className="z-50" collapsible="icon">
       <SidebarContent>
-
         {/* sidebar header  */}
-        <SidebarHeader className="flex mt-5 items-center space-x-2 px-3 py-2">
-  <FaHotel  className="w-5 h-5" />
-  {open && <span className="whitespace-nowrap">Yomstay</span>}
-</SidebarHeader>
+
+        {openMobile && (
+          <SidebarHeader className="flex mt-5 justify-between flex-row space-x-2 px-3 py-2">
+            <div></div>
+            <div>
+              <FaHotel className="w-5 h-5" />
+              {open && <span className="whitespace-nowrap">Yomstay</span>}
+            </div>
+            <div>
+              {openMobile && (
+                <MdClose
+                  onClick={toggleSidebar}
+                  className="w-5 h-5 cursor-pointer"
+                />
+              )}
+            </div>
+          </SidebarHeader>
+        )}
+
+        {/* sidebar header for desktop */}
+
+        {!openMobile && (
+          <SidebarHeader className="flex mt-5 items-center space-x-2 px-3 py-2">
+            <FaHotel className="w-5 h-5" />
+            {open && <span className="whitespace-nowrap">Yomstay</span>}
+          </SidebarHeader>
+        )}
 
         {/* other group */}
         <SidebarGroup>
@@ -75,9 +101,6 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
-       
-
       </SidebarContent>
     </Sidebar>
   );

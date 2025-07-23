@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Input } from "@/components/ui/input"
 import { useDispatch, useSelector } from "react-redux";
 import { Star } from "lucide-react";
 import { FaRegEdit, FaSave, FaUpload } from "react-icons/fa";
@@ -7,6 +8,12 @@ import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 // import Dropdown from "react-dropdown";
 // import "react-dropdown/style.css";
 

@@ -84,7 +84,7 @@ const Dashboard = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="rounded-lg mb-8 p-8 flex flex-col md:flex-row items-center justify-between gap-6" style={{ background: "var(--bg-gradient-yomstay)", color: "var(--color-navyblue)" }}>
+      <section className="rounded-lg   mb-8 p-8 flex flex-col md:flex-row items-center justify-between gap-6" style={{ background: "var(--bg-gradient-yomstay)", color: "var(--color-navyblue)" }}>
         <div>
           <h2 className="text-3xl md:text-4xl font-bold mb-2">Welcome to Your Dashboard</h2>
           <p className="text-lg max-w-xl">Manage your bookings, view statistics, and get insights into your hotel operations—all in one place.</p>
