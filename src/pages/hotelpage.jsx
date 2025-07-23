@@ -584,14 +584,14 @@ const cityOptions = cities.map((city) => ({
                   />
                   <button
                     onClick={() => dispatch(updatePrimaryImage(null))}
-                    className="absolute top-2 right-2 bg-white text-red-500 rounded-full p-2"
+                    className="absolute top-2 right-2  text-red-500 rounded-full p-2"
                     title="Remove Primary Image"
                   >
                     <RiDeleteBin5Fill className="w-5 cursor-pointer  h-5" />
                   </button>
                 </div>
               ) : (
-                <div className="text-sm text-gray-500">
+                <div className="text-sm ">
                   No primary image selected.
                 </div>
               )}
@@ -612,18 +612,18 @@ const cityOptions = cities.map((city) => ({
                   <div className="absolute top-2 right-2 flex flex-col gap-1">
                     <button
                       onClick={() => handleRemoveImage(image.id)}
-                      className=" text-red-500 cursor-pointer bg-white rounded-full p-2"
+                      className=" text-red-500 cursor-pointer  rounded-full p-2"
                       title="Remove Image"
                     >
                       <RiDeleteBin5Fill className="w-5 h-5 bg" />
                     </button>
                     <button
                       onClick={() => handleSetPrimaryImage(image)}
-                      className="bg-white rounded-full p-2 shadow-md"
+                      className="rounded-full p-2 shadow-md"
                       title="Set as Primary"
                     >
                       {hotel.primaryImage?.id === image.id ? (
-                        <MdOutlineStarPurple500 className="text-yellow-500 w-5 h-5" />
+                        <MdOutlineStarPurple500 className="text-yellow-500 cursor-pointer w-5 h-5" />
                       ) : (
                         <MdOutlineStarOutline className="text-gray-500 w-5 h-5" />
                       )}
@@ -632,7 +632,7 @@ const cityOptions = cities.map((city) => ({
                 </div>
               ))}
               <div
-                className="flex justify-center items-center bg-gray-200 rounded-lg cursor-pointer h-32"
+                className="flex justify-center items-center border rounded-lg cursor-pointer h-32"
                 onClick={() => document.getElementById("image-upload").click()}
               >
                 <FaUpload className="w-8 h-8" />
@@ -661,7 +661,7 @@ const cityOptions = cities.map((city) => ({
 
             <div className="flex flex-col gap-2">
               {hotel.amenities.map((amenity) => (
-                <div key={amenity.id} className="flex items-center justify-between px-4 py-2 border rounded-md bg-white">
+                <div key={amenity.id} className="flex items-center justify-between px-4 py-2 border rounded-md ">
                   {activeInteractive === `amenity:${amenity.id}` ? (
                     <input
                       type="text"
@@ -695,7 +695,7 @@ const cityOptions = cities.map((city) => ({
                     ) : (
                       <>
                         <FaRegEdit
-                          className="w-4 h-4 hover:scale-125 text-gray-600 cursor-pointer"
+                          className="w-4 h-4 hover:scale-125  cursor-pointer"
                           onClick={() =>
                             handleEditAmenity(amenity.id, amenity.name)
                           }
