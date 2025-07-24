@@ -4,6 +4,7 @@ import App from "./App";
 import SignInPage from "./pages/signIn_page";
 import Spinner from "./components/Spinner";
 import HotelPage from "./pages/hotelpage";
+import RoomDetail from "./pages/roomdetail.jsx";
 
 // A wrapper component to protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -55,6 +56,14 @@ export const router = createBrowserRouter([
         <HotelPage />
       </ProtectedRoute>
     ),
+  },
+  {
+  path: '/roomdetail',
+  element: (
+    <ProtectedRoute>
+      <RoomDetail />
+    </ProtectedRoute>
+  ),
   },
   {
     path: "/login",

@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/clerk-react'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './routes'
 import './index.css'
+import "keen-slider/keen-slider.min.css"
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
