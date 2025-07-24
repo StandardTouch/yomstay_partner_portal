@@ -8,6 +8,8 @@ function LayoutContent({ children }) {
   const { toggleSidebar, open } = useSidebar();
   const { user } = useUser();
 
+  // Added test branch
+
   return (
     <div className="flex w-full min-h-screen" style={{ background: "var(--color-lightgray)" }}>
       <AppSidebar />
