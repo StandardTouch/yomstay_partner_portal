@@ -82,7 +82,7 @@ const Dashboard = () => {
   const [date, setDate] = React.useState(new Date());
 
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="rounded-lg   mb-8 p-8 flex flex-col md:flex-row items-center justify-between gap-6" style={{ background: "var(--bg-gradient-yomstay)", color: "var(--color-navyblue)" }}>
         <div>
@@ -172,15 +172,8 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
-    </Layout>
+    </>
   );
 };
 
-export default function DashboardPage() {
-  return (
- 
-     <SidebarProvider>
-      <Dashboard />
-    </SidebarProvider>
-  );
-}
+export default Dashboard;

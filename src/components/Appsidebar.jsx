@@ -65,7 +65,9 @@ export function AppSidebar() {
           <SidebarHeader className="flex mt-5 justify-between flex-row space-x-2 px-3 py-2">
             <div />
             <div>
-              <FaHotel className="w-5 h-5" />
+              {/* <FaHotel className="w-5 h-5" /> */}
+                            <img src={smallLogoSrc} alt="Logo Small" className="w-6 pt-1" />
+
             </div>
             <div>
               <MdClose
@@ -95,7 +97,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem onClick={openMobile? toggleSidebar : null} key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link to={item.url}>
                       <item.icon />

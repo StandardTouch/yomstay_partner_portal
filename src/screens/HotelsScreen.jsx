@@ -458,8 +458,7 @@ export default function HotelsScreen() {
   }
 
   return (
-    <SidebarProvider>
-      <Layout>
+    
     <div className="p-4 sm:p-8 w-full max-w-7xl mx-auto relative ">
 
       {/* Header */}
@@ -593,7 +592,6 @@ export default function HotelsScreen() {
         </SheetContent>
       </Sheet>
     </div>
-    </Layout>
-    </SidebarProvider>
+   
   );
 }
