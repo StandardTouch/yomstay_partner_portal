@@ -44,6 +44,7 @@ function useSidebar() {
 
 function SidebarProvider({
   defaultOpen = false,
+
   open: openProp,
   onOpenChange: setOpenProp,
   className,

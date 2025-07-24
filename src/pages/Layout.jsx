@@ -3,47 +3,28 @@ import { AppSidebar } from "../components/Appsidebar";
 import { UserButton, useUser } from "@clerk/clerk-react";
 import { FaBars } from "react-icons/fa6";
 import { useSidebar, SidebarProvider } from "../components/ui/sidebar";
-import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 
-
-import '@fontsource-variable/jetbrains-mono';
+import "@fontsource-variable/jetbrains-mono";
 import { RiFontFamily } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { ModeToggle } from "../components/mode-toggle";
+import { ModeToggle } from "../components/ui/mode-toggle";
+import { useTheme } from "next-themes";
 
 function LayoutContent({ children }) {
   const { toggleSidebar, open } = useSidebar();
+    const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
   const { user } = useUser();
-  const [isDark, setIsDark] = useState(false);
 
-  // On mount, check localStorage and set theme
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (
-      savedTheme === 'dark' ||
-      (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    } else {
-      document.documentElement.classList.remove('dark');
-      setIsDark(false);
-    }
-  }, []);
 
-  // Toggle theme handler
+
   const toggleTheme = () => {
-    if (document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      setIsDark(true);
-    }
+    setTheme(isDark ? "light" : "dark");
   };
+
 
   return (
     <div className="flex w-full min-h-screen">
@@ -61,24 +42,26 @@ function LayoutContent({ children }) {
           >
             <FaBars className="w-5 h-5 " />
           </button>
-          <div className="text-1.5xl md:text-3xl font-semibold" style={{fontFamily: "jetbrains mono"}} >
+          <div
+            className="text-1.5xl md:text-3xl font-semibold"
+            style={{ fontFamily: "jetbrains mono" }}
+          >
             Partner Portal
           </div>
           <div className="flex items-center gap-4">
-            <DarkModeSwitch
+            {/* <DarkModeSwitch
               checked={isDark}
               onChange={toggleTheme}
               size={24}
               className="cursor-pointer"
-            />
+            /> */}
+            <ModeToggle/>
             <UserButton signOutRedirectUrl="/login" />
           </div>
         </header>
 
         {/* Main content */}
-        <main className="w-full mt-4 p-4">
-          {children}
-        </main>
+        <main className="w-full mt-4 p-4">{children}</main>
       </div>
     </div>
   );
