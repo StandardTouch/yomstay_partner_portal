@@ -117,156 +117,158 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
           <Button onClick={addHotel}>Update</Button>
         </div>
       </div>
-      <Tabs defaultValue="images" className="w-full ">
-        <div className="w-full overflow-scroll md:overflow-hidden rounded-md">
-          <TabsList className="flex gap-2 *:cursor-pointer z-20">
-            <TabsTrigger value="images">Images</TabsTrigger>
-            <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="address">Address</TabsTrigger>
-            <TabsTrigger value="amenities">Amenities</TabsTrigger>
-            <TabsTrigger value="faqs">Faqs</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
-          </TabsList>
-        </div>
-        {/* Images Tab */}
-        <TabsContent value="images" className="border rounded-md p-2">
-          <div className="flex flex-col gap-2 p-1">
-            <div className="flex flex-col md:flex-row justify-between md:items-center gap-2">
-              <h2 className="text-2xl font-semibold">Images</h2>
-            </div>
-            <div className="flex flex-col gap-2">
-              <p>Featured Image</p>
-              <img src={fields.images.find(img => img.isPrimary)?.url} alt="hotel" className=" rounded-md md:w-1/4 w-1/2 p-1 " />
-            </div>
-            <p>Select a featured image by clicking on the star icon</p>
-            <div className="flex md:flex-row flex-wrap border rounded-md">
-              {fields.images.map((image, idx) => (
-                <ImageCard
-                  key={image.id || idx}
-                  image={image}
-                  isPrimary={!!image.isPrimary}
-                  onSetPrimary={() => handleField("images", fields.images.map(img => ({ ...img, isPrimary: img.id === image.id })))}
-                  onDelete={() => handleField("images", fields.images.filter((_, i) => i !== idx))}
-                />
-              ))}
-              <div className="md:w-1/4 w-1/2 p-1">
-                <div className="flex flex-col justify-center items-center w-full min-h-40 h-full rounded dark:bg-slate-800 bg-slate-300">
-                  <label htmlFor="addImage" className="cursor-pointer flex flex-col justify-center items-center w-full h-full text-sm">
-                    <Upload className="w-6" />Upload Image
-                  </label>
-                  <input type="file" id="addImage" className="hidden" accept="image/*" onChange={e => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const addImage = { altText: file.name, id: Math.random().toString(), url: URL.createObjectURL(file) };
-                    handleField("images", [...fields.images, addImage]);
-                  }} />
+      <div className="w-full relative">
+        <Tabs defaultValue="images" className="w-full absolute top-0 left-0">
+          <div className="w-full overflow-scroll md:overflow-hidden rounded-md">
+            <TabsList className="flex gap-2 *:cursor-pointer z-20">
+              <TabsTrigger value="images">Images</TabsTrigger>
+              <TabsTrigger value="details">Details</TabsTrigger>
+              <TabsTrigger value="address">Address</TabsTrigger>
+              <TabsTrigger value="amenities">Amenities</TabsTrigger>
+              <TabsTrigger value="faqs">Faqs</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            </TabsList>
+          </div>
+          {/* Images Tab */}
+          <TabsContent value="images" className="border rounded-md p-2">
+            <div className="flex flex-col gap-2 p-1">
+              <div className="flex flex-col md:flex-row justify-between md:items-center gap-2">
+                <h2 className="text-2xl font-semibold">Images</h2>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p>Featured Image</p>
+                <img src={fields.images.find(img => img.isPrimary)?.url} alt="hotel" className=" rounded-md md:w-1/4 w-1/2 p-1 " />
+              </div>
+              <p>Select a featured image by clicking on the star icon</p>
+              <div className="flex md:flex-row flex-wrap border rounded-md">
+                {fields.images.map((image, idx) => (
+                  <ImageCard
+                    key={image.id || idx}
+                    image={image}
+                    isPrimary={!!image.isPrimary}
+                    onSetPrimary={() => handleField("images", fields.images.map(img => ({ ...img, isPrimary: img.id === image.id })))}
+                    onDelete={() => handleField("images", fields.images.filter((_, i) => i !== idx))}
+                  />
+                ))}
+                <div className="md:w-1/4 w-1/2 p-1">
+                  <div className="flex flex-col justify-center items-center w-full min-h-40 h-full rounded dark:bg-slate-800 bg-slate-300">
+                    <label htmlFor="addImage" className="cursor-pointer flex flex-col justify-center items-center w-full h-full text-sm">
+                      <Upload className="w-6" />Upload Image
+                    </label>
+                    <input type="file" id="addImage" className="hidden" accept="image/*" onChange={e => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+                      const addImage = { altText: file.name, id: Math.random().toString(), url: URL.createObjectURL(file) };
+                      handleField("images", [...fields.images, addImage]);
+                    }} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </TabsContent>
-        {/* Details Tab */}
-        <TabsContent value="details" className="flex flex-col gap-2 border rounded-md p-3">
-          <h2 className="text-2xl font-semibold">Details</h2>
-          <div className="flex flex-col gap-2">
-            <label className="text-lg">Name</label>
-            <Input type="text" className="w-full p-3" required value={fields.name} onChange={e => handleField("name", e.target.value)} />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-lg">Description</label>
-            <Input type="text" className="w-full p-3" required value={fields.description} onChange={e => handleField("description", e.target.value)} />
-          </div>
-          <div className="flex flex-col md:flex-row w-full gap-2">
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-lg">Star Rating</label>
-              <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map(star => {
-                  let icon;
-                  if (fields.starRating >= star) icon = <FaStar className="text-yellow-400" />;
-                  else if (fields.starRating >= star - 0.5) icon = <FaStarHalfAlt className="text-yellow-400" />;
-                  else icon = <FaRegStar className="text-gray-400" />;
-                  return (
-                    <div key={star} className="w-6 h-6 cursor-pointer" onClick={e => handleStarClick(e, star)}>{icon}</div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-lg">Number of Rooms</label>
-              <Input type="number" className="w-full p-3" required value={fields.numberOfRooms} onChange={e => handleField("numberOfRooms", e.target.value)} />
-            </div>
-          </div>
-        </TabsContent>
-        {/* Address Tab */}
-        <TabsContent value="address" className="flex flex-col gap-2 border rounded-md p-3">
-          <h2 className="text-2xl font-semibold">Address</h2>
-          <div className="flex flex-col w-full gap-2 mt-2">
-            <div className="flex flex-col md:flex-row w-full *:w-full gap-2">
-              <div className="flex flex-col gap-2 ">
-                <label className="text-lg">Address</label>
-                <Input type="text" className="w-full p-3" required value={fields.address} onChange={e => handleField("address", e.target.value)} />
-              </div>
-              <div className="flex flex-col gap-2 ">
-                <label className="text-lg">City</label>
-                <Input type="text" className="w-full p-3" required value={fields.city} onChange={e => handleField("city", e.target.value)} />
-              </div>
-            </div>
-            <div className="flex flex-col md:flex-row w-full gap-2 *:w-full">
-              <div className="flex flex-col gap-2">
-                <label className="text-lg">Postal Code</label>
-                <Input type="text" className="w-full p-3" required value={fields.postalCode} onChange={e => handleField("postalCode", e.target.value)} />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-lg">State</label>
-                <Input type="text" className="w-full p-3" required value={fields.state} onChange={e => handleField("state", e.target.value)} />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-lg">Country</label>
-                <Input type="text" className="w-full p-3" required value={fields.country} onChange={e => handleField("country", e.target.value)} />
-              </div>
-            </div>
-          </div>
-        </TabsContent>
-        {/* Amenities Tab */}
-        <TabsContent value="amenities" className="flex flex-col gap-2 border rounded-md p-3">
-          <div className="flex flex-wrap gap-2 justify-between mt-2">
-            <div className="flex justify-between items-center gap-2 w-full">
-              <h2 className="text-2xl font-semibold">Amenities</h2>
-              <AddButton buttonValue="Add Amenities" onAdd={() => setModal({ open: true, type: "amenity" })} />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 w-full">
-              {amenitiesList.map((amenity, idx) => (
-                <AmenityItem key={amenity.id || idx} amenity={amenity} onDelete={() => setAmenitiesList(amenitiesList.filter((_, i) => i !== idx))} />
-              ))}
-            </div>
-          </div>
-        </TabsContent>
-        {/* Faqs Tab */}
-        <TabsContent value="faqs" className="flex flex-col gap-2 border rounded-md p-3">
-          <div>
-            <div className="flex justify-between items-center gap-2 mb-2">
-              <h2 className="text-2xl font-semibold">Faq</h2>
-              <AddButton buttonValue="Add Faq" onAdd={() => setModal({ open: true, type: "faq" })} />
+          </TabsContent>
+          {/* Details Tab */}
+          <TabsContent value="details" className="flex flex-col gap-2 border rounded-md p-3">
+            <h2 className="text-2xl font-semibold">Details</h2>
+            <div className="flex flex-col gap-2">
+              <label className="text-lg">Name</label>
+              <Input type="text" className="w-full p-3" required value={fields.name} onChange={e => handleField("name", e.target.value)} />
             </div>
             <div className="flex flex-col gap-2">
-              {fields.faq.map((faq, idx) => (
-                <FaqItem
-                  key={idx}
-                  faq={faq}
-                  onChange={newFaq => handleField("faq", fields.faq.map((f, i) => (i === idx ? newFaq : f)))}
-                  onDelete={() => handleField("faq", fields.faq.filter((_, i) => i !== idx))}
-                />
-              ))}
+              <label className="text-lg">Description</label>
+              <Input type="text" className="w-full p-3" required value={fields.description} onChange={e => handleField("description", e.target.value)} />
             </div>
-          </div>
-        </TabsContent>
-        {/* Reviews Tab */}
-        <TabsContent value="reviews" className="flex flex-col gap-2 border rounded-md p-3">
-          <div className="flex flex-col gap-2">
-            {fields.reviews.map((review, idx) => <ReviewItem key={idx} review={review} />)}
-          </div>
-        </TabsContent>
-      </Tabs>
+            <div className="flex flex-col md:flex-row w-full gap-2">
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-lg">Star Rating</label>
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4, 5].map(star => {
+                    let icon;
+                    if (fields.starRating >= star) icon = <FaStar className="text-yellow-400" />;
+                    else if (fields.starRating >= star - 0.5) icon = <FaStarHalfAlt className="text-yellow-400" />;
+                    else icon = <FaRegStar className="text-gray-400" />;
+                    return (
+                      <div key={star} className="w-6 h-6 cursor-pointer" onClick={e => handleStarClick(e, star)}>{icon}</div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-lg">Number of Rooms</label>
+                <Input type="number" className="w-full p-3" required value={fields.numberOfRooms} onChange={e => handleField("numberOfRooms", e.target.value)} />
+              </div>
+            </div>
+          </TabsContent>
+          {/* Address Tab */}
+          <TabsContent value="address" className="flex flex-col gap-2 border rounded-md p-3">
+            <h2 className="text-2xl font-semibold">Address</h2>
+            <div className="flex flex-col w-full gap-2 mt-2">
+              <div className="flex flex-col md:flex-row w-full *:w-full gap-2">
+                <div className="flex flex-col gap-2 ">
+                  <label className="text-lg">Address</label>
+                  <Input type="text" className="w-full p-3" required value={fields.address} onChange={e => handleField("address", e.target.value)} />
+                </div>
+                <div className="flex flex-col gap-2 ">
+                  <label className="text-lg">City</label>
+                  <Input type="text" className="w-full p-3" required value={fields.city} onChange={e => handleField("city", e.target.value)} />
+                </div>
+              </div>
+              <div className="flex flex-col md:flex-row w-full gap-2 *:w-full">
+                <div className="flex flex-col gap-2">
+                  <label className="text-lg">Postal Code</label>
+                  <Input type="text" className="w-full p-3" required value={fields.postalCode} onChange={e => handleField("postalCode", e.target.value)} />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-lg">State</label>
+                  <Input type="text" className="w-full p-3" required value={fields.state} onChange={e => handleField("state", e.target.value)} />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-lg">Country</label>
+                  <Input type="text" className="w-full p-3" required value={fields.country} onChange={e => handleField("country", e.target.value)} />
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+          {/* Amenities Tab */}
+          <TabsContent value="amenities" className="flex flex-col gap-2 border rounded-md p-3">
+            <div className="flex flex-wrap gap-2 justify-between mt-2">
+              <div className="flex justify-between items-center gap-2 w-full">
+                <h2 className="text-2xl font-semibold">Amenities</h2>
+                <AddButton buttonValue="Add Amenities" onAdd={() => setModal({ open: true, type: "amenity" })} />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 w-full">
+                {amenitiesList.map((amenity, idx) => (
+                  <AmenityItem key={amenity.id || idx} amenity={amenity} onDelete={() => setAmenitiesList(amenitiesList.filter((_, i) => i !== idx))} />
+                ))}
+              </div>
+            </div>
+          </TabsContent>
+          {/* Faqs Tab */}
+          <TabsContent value="faqs" className="flex flex-col gap-2 border rounded-md p-3">
+            <div>
+              <div className="flex justify-between items-center gap-2 mb-2">
+                <h2 className="text-2xl font-semibold">Faq</h2>
+                <AddButton buttonValue="Add Faq" onAdd={() => setModal({ open: true, type: "faq" })} />
+              </div>
+              <div className="flex flex-col gap-2">
+                {fields.faq.map((faq, idx) => (
+                  <FaqItem
+                    key={idx}
+                    faq={faq}
+                    onChange={newFaq => handleField("faq", fields.faq.map((f, i) => (i === idx ? newFaq : f)))}
+                    onDelete={() => handleField("faq", fields.faq.filter((_, i) => i !== idx))}
+                  />
+                ))}
+              </div>
+            </div>
+          </TabsContent>
+          {/* Reviews Tab */}
+          <TabsContent value="reviews" className="flex flex-col gap-2 border rounded-md p-3">
+            <div className="flex flex-col gap-2">
+              {fields.reviews.map((review, idx) => <ReviewItem key={idx} review={review} />)}
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
       {/* Modal for Add Faq/Amenity */}
       <Sheet open={modal.open} onOpenChange={open => { setModal(m => ({ ...m, open })); handleCancel(); }}>
         <SheetContent side="right" className="max-w-md w-full overflow-y-auto ">
