@@ -77,7 +77,7 @@ const Dashboard = () => {
   const [date, setDate] = React.useState(new Date());
 
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
         <section
       className="rounded-2xl mb-10 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg bg-[#F0F9FF] text-slate-800"
@@ -192,15 +192,8 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
-    </Layout>
+    </>
   );
 };
 
-export default function DashboardPage() {
-  return (
-    <SidebarProvider>
-      <AppSidebar />
-      <Dashboard />
-    </SidebarProvider>
-  );
-}
+export default Dashboard;

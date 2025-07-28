@@ -5,6 +5,9 @@ import SignInPage from "./pages/signIn_page";
 import Spinner from "./components/Spinner";
 import HotelPage from "./pages/hotelpage";
 import RoomDetail from "./pages/roomdetail.jsx";
+import HotelsScreen from "./screens/HotelsScreen";
+import { SidebarProvider } from "./components/ui/sidebar";
+import Layout from "./pages/Layout";
 
 // A wrapper component to protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -18,7 +21,13 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return (
+  <SidebarProvider>
+    <Layout>
+    {children}
+    </Layout>
+  </SidebarProvider>
+  )
 };
 
 // A wrapper component for routes that should only be accessible to guests (e.g., login page)
@@ -53,7 +62,7 @@ export const router = createBrowserRouter([
     path: "/hotel",
     element: (
       <ProtectedRoute>
-        <HotelPage />
+        <HotelsScreen />
       </ProtectedRoute>
     ),
   },

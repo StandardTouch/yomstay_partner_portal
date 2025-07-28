@@ -1,8 +1,10 @@
 import React from 'react';
+import { Atom, Commet } from 'react-loading-indicators';
 
 const Spinner = () => (
   <div className="flex justify-center items-center min-h-screen">
-    <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-pastelgreen"></div>
+   {/* <Commet color="#C7E0A3" size="medium" text="" textColor="" /> */}
+   <Atom color="#C7E0A3" size="medium" text="" textColor="" />
   </div>
 );
 
