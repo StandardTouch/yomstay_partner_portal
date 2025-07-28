@@ -84,7 +84,7 @@ const RoomDetail = () => {
     "https://media.istockphoto.com/id/185086520/photo/luxury-hotel-room.jpg?s=1024x1024&w=is&k=20&c=jAjrXkQClfhcYrvnGhUw-x6NwYJHoboLMAiUgA1E89s=";
 
   return (
-    <Layout>
+   
       <div className="bg-gray-100 py-8 px-4 flex justify-center">
         <div className="bg-white rounded-xl shadow-lg w-full max-w-6xl overflow-hidden">
           {/* Room Banner */}
@@ -237,7 +237,7 @@ const RoomDetail = () => {
           </div>
         </div>
       </div>
-    </Layout>
+  
   );
 };
 

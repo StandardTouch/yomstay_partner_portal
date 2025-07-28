@@ -8,9 +8,9 @@ export const AmenityItem = ({ amenity, onDelete, onAdd, CheckSheet }) => (
       <img src={amenity.icon} alt={amenity.name} className="w-15 h-15" />
       <p>{amenity.name}</p>
     </div>
-    <div className=" absolute top-0 right-2 flex flex-col justify-evenly gap-1 h-full ">
+    <div className=" absolute top-0 right-2  flex flex-col justify-evenly gap-1 h-full ">
       {CheckSheet === "amenitySheet" ? <div className="cursor-pointer bg-red-500 hover:bg-red-700 text-white p-0.5 rounded-2xl" onClick={onDelete}><X size={16} /></div> :
-        <AlertBox Check="amenity" onDelete={onDelete} />}
+        <AlertBox Check="Amenity" onDelete={onDelete} />}
     </div>
   </div>
 ); 

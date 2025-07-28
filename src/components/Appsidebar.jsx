@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Home, Hotel } from "lucide-react";
+import { Home, Hotel, Inbox } from "lucide-react";
 import { FaHotel } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
@@ -19,8 +19,8 @@ import { useTheme } from "next-themes";
 
 // Menu items
 const items = [
-  { title: "Dashboard", url: "/dashboard", icon: Home },
-  { title: "Hotel", url: "/hotel", icon: Hotel },
+  // { title: "Dashboard", url: "/dashboard", icon: Home },
+  // { title: "Hotel", url: "/hotel", icon: Hotel },
   {
     title: "Dashboard",
     url: "/dashboard",

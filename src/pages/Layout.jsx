@@ -33,10 +33,10 @@ function LayoutContent({ children }) {
 
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header
+        {/* <header
           className="h-16 fixed flex w-full z-50 shadow-md justify-between items-center px-4"
           style={{ backgroundColor: "#e0ecf9" }} // ✅ Solid background color
-        >
+        > */}
         <header className="sticky top-0 left-0 right-0 flex items-center justify-between px-4 py-4 bg-card text-card-foreground border-b shadow-sm z-40 rounded-none">
           <button
             onClick={toggleSidebar}
@@ -44,7 +44,7 @@ function LayoutContent({ children }) {
             aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
             // style={{ color: "var(--color-navyblue)" }}
           >
-            <FaBars className="w-5 h-5 text-slate-800" />
+            {/* <FaBars className="w-5 h-5 text-slate-800" /> */}
             <FaBars className="w-5 h-5 " />
           </button>
           <div
@@ -70,12 +70,12 @@ function LayoutContent({ children }) {
       </div>
     </div>
   );
-}
+} 
 
 export default function Layout({ children }) {
   return (
-    <SidebarProvider>
+    
       <LayoutContent>{children}</LayoutContent>
-    </SidebarProvider>
+  
   );
 }
