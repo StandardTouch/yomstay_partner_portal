@@ -66,7 +66,7 @@ export function AppSidebar() {
             <div />
             <div>
               {/* <FaHotel className="w-5 h-5" /> */}
-                            <img src={smallLogoSrc} alt="Logo Small" className="w-6 pt-1" />
+                            <img src={logoSrc} alt="Logo Small" className="w-32" />
 
             </div>
             <div>
