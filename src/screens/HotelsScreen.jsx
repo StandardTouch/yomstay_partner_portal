@@ -10,7 +10,7 @@ import {
   SheetTitle, SheetFooter, SheetClose,
 } from "@/components/ui/sheet";
 import AlertBox from "../components/Alert_box";
-import AddButton from "../components/AddButton";
+import AddButton from "../components/AddButton.jsx";
 import { SidebarProvider } from "../components/ui/sidebar";
 import Layout from "../pages/Layout";
 
