@@ -2,7 +2,7 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Star, X } from "lucide-react";
 import { MdOutlineStar } from "react-icons/md";
-import AlertBox from "../../components/alert-box";
+import AlertBox from "../../components/Alert_box";
 
 export const ImageCard = ({ image, isPrimary, onSetPrimary, onDelete }) => (
   <div className="md:w-1/4 w-1/2 p-1 relative">

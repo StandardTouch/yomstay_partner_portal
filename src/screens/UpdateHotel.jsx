@@ -27,7 +27,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import AddButton from "../components/AddButton";
+import AddButton from "../components/Addbutton";
 import DragDrop from "./UpdateHotel/dragbox";
 
 function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
-import AlertBox from "../../components/alert-box";
+import AlertBox from "../../components/Alert_box";
 
 export const AmenityItem = ({ amenity, onDelete, onAdd, CheckSheet }) => (
   <div className="relative" >
