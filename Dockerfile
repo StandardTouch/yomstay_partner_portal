@@ -1,5 +1,5 @@
-# Use Node 22 for building
-FROM node:22-alpine AS build
+# Stage 1: Build with Node 24
+FROM node:24-alpine AS build
 
 WORKDIR /app
 
@@ -7,20 +7,20 @@ WORKDIR /app
 COPY package.json package-lock.json* pnpm-lock.yaml* ./
 RUN npm install
 
-# Copy source
+# Copy source files
 COPY . .
 
-# Build Vite app
+# Build the Vite app
 RUN npm run build
 
 
-# Use Nginx for serving static files
+# Stage 2: Production server with nginx
 FROM nginx:alpine
 
-# Copy build output to nginx web directory
+# Copy build output to nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Inject runtime ENV vars
+# Inject runtime environment variables into env.js
 RUN echo '#!/bin/sh\n\
 echo "window.env = {" > /usr/share/nginx/html/env.js\n\
 for var in $(env | cut -d= -f1); do\n\
@@ -30,7 +30,7 @@ done\n\
 echo "}" >> /usr/share/nginx/html/env.js\n' > /docker-entrypoint.d/99-gen-env.sh && \
 chmod +x /docker-entrypoint.d/99-gen-env.sh
 
-# Custom nginx config (inline)
+# Custom nginx configuration
 RUN rm /etc/nginx/conf.d/default.conf && \
 echo 'server {\n\
   listen 80;\n\
