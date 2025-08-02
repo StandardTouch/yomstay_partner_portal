@@ -1,13 +1,25 @@
 import React, { use, useState } from "react";
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UpdateHotel from "./UpdateHotel";
 import { Hand, Plus, Upload } from "lucide-react";
 import {
-  Sheet, SheetContent, SheetHeader,
-  SheetTitle, SheetFooter, SheetClose,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetFooter,
+  SheetClose,
 } from "@/components/ui/sheet";
 import AlertBox from "../components/Alert_box";
 import AddButton from "../components/AddButton.jsx";
@@ -190,6 +202,7 @@ export default function HotelsScreen() {
           createdAt: "2023-10-06T13:20:17.933Z",
         },
       ],
+      rooms: [],
       avgReview: 1.7,
       totalReviews: 3,
     },
@@ -377,6 +390,7 @@ export default function HotelsScreen() {
           createdAt: "2023-10-06T13:20:17.933Z",
         },
       ],
+      rooms: [],
       avgReview: 1.7,
       totalReviews: 3,
     },
@@ -385,48 +399,10 @@ export default function HotelsScreen() {
   const [hotellist, setHotellist] = useState(Hotels); // State to store the list of hotels
   const [hotelIndex, setHotelIndex] = useState("0"); // State to store the index of the selected hotel
   const [show, setShow] = useState(false); // State to control the visibility of the modal
-  const [addOpen, setAddOpen] = useState(false); // State to control the visibility of the add hotel form
-  const [addHotel, setAddHotel] = useState({
-    // State to store the details of the new hotel
-    id: Math.random().toString(),
-    name: "",
-    status: "approved",
-    address: "",
-    postalCode: "",
-    description: "",
-    ownerId: "",
-    createdAt: "",
-    updatedAt: "",
-    starRating: 1,
-    numberOfRooms: 1,
-    location: {
-      lat: "",
-      lng: "",
-    },
-    country: {
-      id: Math.random().toString(),
-      name: "",
-    },
-    state: {
-      id: Math.random().toString(),
-      name: "",
-    },
-    city: {
-      id: Math.random().toString(),
-      name: "",
-    },
-    images: [],
-    amenities: [],
-    faq: [],
-    reviews: [],
-    avgReview: 1.7,
-    totalReviews: 3,
-  });
 
   // Function to update a hotel
   const updateNewHotel = (newHotel) => {
     setHotellist((prevHotels) => {
-
       const hotelExists = prevHotels.some((hotel) => hotel.id === newHotel.id);
 
       if (hotelExists) {
@@ -441,56 +417,57 @@ export default function HotelsScreen() {
     });
   };
 
-  // Function to add a new hotel
-  function HandleAddHotel(event) {
-    event.preventDefault();
-    setAddHotel({ ...addHotel, id: Math.random().toString() })
-    if (addHotel.name === "") return;
-    if (addHotel.description === "") return;
-    if (addHotel.address === "") return;
-    if (addHotel.city === "") return;
-    if (addHotel.state === "") return;
-    if (addHotel.country === "") return;
-    if (addHotel.numberOfRooms === 0) return;
-    setHotellist((prevHotels) => [addHotel, ...prevHotels]);
-    setAddHotel({ images: [], })
-    setAddOpen(false);
-  }
-
   return (
-    
     <div className="p-4 sm:p-8 w-full max-w-7xl mx-auto relative ">
-
       {/* Header */}
       {!show && (
         <div className="mb-6 flex justify-between">
           <h1 className="text-2xl font-bold ">Hotels</h1>
-          <AddButton buttonValue="Add Hotel" onAdd={() => setAddOpen(true)} />
+          {/* <AddButton buttonValue="Add Hotel" onAdd={() => setAddOpen(true)} /> */}
         </div>
       )}
 
       {/* Modal for updating a hotel */}
-      {show && (<UpdateHotel hotel={hotellist[hotelIndex]} setShow={setShow} defaultAmenities={Hotels[hotelIndex].amenities} onAddHotel={updateNewHotel} />)}
+      {show && (
+        <UpdateHotel
+          hotel={hotellist[hotelIndex]}
+          setShow={setShow}
+          defaultAmenities={Hotels[hotelIndex].amenities}
+          onAddHotel={updateNewHotel}
+        />
+      )}
 
       {/* List of hotels */}
       {!show && (
         <div className=" flex flex-col gap-4  ">
-
           {/* Hotels List */}
           {hotellist.map((hotel) => (
-            <Card key={hotel.id} className="min-[800px]:flex-col min-[1010px]:flex-row flex-col gap-2 px-2 py-3 shadow-sm hover:shadow-muted-foreground duration-300 transition-shadow cursor-pointer relative"
-              onClick={() => { setHotelIndex(hotellist.indexOf(hotel)); }} >
-
-              <CardHeader className="flex flex-col justify-center items-center px-2 pb-0 w-full " onClick={() => setShow(true)} >
+            <Card
+              key={hotel.id}
+              className="min-[800px]:flex-col min-[1010px]:flex-row flex-col gap-2 px-2 py-3 shadow-sm hover:shadow-muted-foreground duration-300 transition-shadow cursor-pointer relative"
+              onClick={() => {
+                setHotelIndex(hotellist.indexOf(hotel));
+              }}
+            >
+              <CardHeader
+                className="flex flex-col justify-center items-center px-2 pb-0 w-full "
+                onClick={() => setShow(true)}
+              >
                 {hotel.images.find((image) => image.isPrimary) && (
-                  <img src={hotel.images.find((image) => image.isPrimary).url} alt={hotel.images.find((image) => image.isPrimary).altText} className="w-full object-cover rounded-md" />
+                  <img
+                    src={hotel.images.find((image) => image.isPrimary).url}
+                    alt={hotel.images.find((image) => image.isPrimary).altText}
+                    className="w-full object-cover rounded-md"
+                  />
                 )}
               </CardHeader>
 
-              <div className="flex flex-col w-full justify-between " onClick={() => setShow(true)} >
+              <div
+                className="flex flex-col w-full justify-between "
+                onClick={() => setShow(true)}
+              >
                 <CardContent className="px-2 flex flex-col gap-4 text-left justify-between h-full">
                   <div className=" w-full flex justify-between items-start ">
-
                     <CardTitle className="leading-normal">
                       {hotel.name}
                     </CardTitle>
@@ -515,83 +492,20 @@ export default function HotelsScreen() {
                 <CardFooter className=" px-2 pt-4 justify-between relative">
                   <p>{hotel.numberOfRooms} - Rooms</p>
                 </CardFooter>
-
               </div>
-              <AlertBox Check="Hotel" hotelName={hotel.name} onDelete={() => {setHotellist(hotellist.filter((item) => item.id !== hotel.id));}} />
+              <AlertBox
+                Check="Hotel"
+                hotelName={hotel.name}
+                onDelete={() => {
+                  setHotellist(
+                    hotellist.filter((item) => item.id !== hotel.id)
+                  );
+                }}
+              />
             </Card>
           ))}
         </div>
       )}
-      {/* Add New Hotel */}
-      <Sheet open={addOpen} onOpenChange={setAddOpen}>
-        <SheetContent side="right" className="max-w-md w-full">
-
-          <SheetHeader>
-            <SheetTitle>Add Hotel</SheetTitle>
-          </SheetHeader>
-
-          <form onSubmit={HandleAddHotel} className="h-full px-5 overflow-y-scroll flex flex-col justify-between" >
-            <div className="flex flex-col gap-4 py-4">
-              {/* Hotel Name */}
-              <Input placeholder="Hotel Name" onChange={(e) => setAddHotel({ ...addHotel, name: e.target.value })} required />
-
-              {/* Description */}
-              <Input placeholder="Description" onChange={(e) => setAddHotel({ ...addHotel, description: e.target.value })} required />
-
-              <div className="flex gap-4">
-                {/* Address */}
-                <Input placeholder="Address" onChange={(e) => setAddHotel({ ...addHotel, address: e.target.value })} required />
-
-                {/* City */}
-                <Input placeholder="City" onChange={(e) => setAddHotel({ ...addHotel, city: { name: e.target.value } })} required />
-              </div>
-
-              <div className="flex gap-4">
-                {/* Country */}
-                <Input placeholder="Country" onChange={(e) => setAddHotel({ ...addHotel, country: { name: e.target.value }, })} required />
-
-                {/* Postal Code */}
-                <Input placeholder="Postal Code" onChange={(e) => setAddHotel({ ...addHotel, postalCode: e.target.value })} required />
-              </div>
-
-              <div className="flex gap-4">
-                {/* State */}
-                <Input placeholder="State" onChange={(e) => setAddHotel({ ...addHotel, state: { name: e.target.value }, })} required />
-
-                {/* Number of Rooms */}
-                <Input placeholder="Number of Rooms" onChange={(e) => setAddHotel({ ...addHotel, numberOfRooms: e.target.value })} type="number" required />
-              </div>
-
-              <div className=" flex flex-col justify-center items-center w-full h-30 rounded dark:bg-slate-800 bg-slate-300 ">
-                {/* Upload Image */}
-                <label htmlFor="addImage" className="cursor-pointer flex flex-col justify-center items-center w-full h-full text-sm " >
-                  {addHotel.images[0] ? (<img src={addHotel.images[0].url} alt={addHotel.images[0].altText} className="w-full h-full object-cover rounded-md" />) :
-                    (<div className="flex flex-col justify-center items-center">
-                      <Upload className=" w-6 " />
-                      <p className="text-sm">Upload Image</p>
-                    </div>
-                    )}
-                </label>
-                <input type="file" name="" id="addImage" className="hidden" accept="image/*" required onChange={(e) => { setAddHotel({ ...addHotel, images: [{ url: URL.createObjectURL(e.target.files[0]), altText: e.target.files[0].name, isPrimary: true, order: 1, },], }); }} />
-              </div>
-            </div>
-
-            <SheetFooter className="flex flex-col gap-3 px-0">
-              <Button type="submit" onClick={HandleAddHotel} className="w-full cursor-pointer" >
-                Add Hotel
-              </Button>
-
-              <SheetClose asChild>
-                <Button type="button" variant="outline" className="w-full cursor-pointer" >
-                  Cancel
-                </Button>
-              </SheetClose>
-
-            </SheetFooter>
-          </form>
-        </SheetContent>
-      </Sheet>
     </div>
-   
   );
 }

@@ -31,11 +31,11 @@ const items = [
     url: "/hotel",
     icon: Hotel,
   },
-  {
-    title: "RoomDetail",
-    url: "/roomdetail",
-    icon: Inbox,
-  },
+  // {
+  //   title: "RoomDetail",
+  //   url: "/roomdetail",
+  //   icon: Inbox,
+  // },
   
 ];
 
