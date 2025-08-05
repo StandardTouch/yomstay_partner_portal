@@ -36,7 +36,7 @@ function AlertBox({ onDelete, Check, hotelName }) {
                     }
                     ${
                       Check === "Faq" &&
-                      " pb-1 px-1.5 text-sm rounded-md absolute top-2 right-2"
+                      " px-2 py-1 text-sm rounded-md absolute top-2 right-2"
                     }
                     ${Check === "Amenity" && "p-0.5 rounded-2xl"}
                     ${Check === "Image" && "p-1 rounded-2xl"}`}
