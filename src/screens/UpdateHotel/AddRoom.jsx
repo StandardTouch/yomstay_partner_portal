@@ -296,7 +296,7 @@ function AddRoom({ defaultAmenities, onAddRoom, setShow }) {
           />
         </div>
       </div>
-      <Button className="cursor-pointer" onClick={handleAddRoom}>
+      <Button className="cursor-pointer bg-pastelgreen text-navyblue-dark hover:bg-pastelgreen-dark" onClick={handleAddRoom}>
         Add Room
       </Button>
       <Toaster

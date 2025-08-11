@@ -127,8 +127,8 @@ const RoomDetail = ({ updateNewRoom, onBack, defaultAmenities }) => {
     <div className="bg-gray-100 dark:bg-gray-900 rounded-md py-8 px-4 flex flex-col justify-center">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold">Room Details</h1>
-        <div className="flex md:flex-row flex-col gap-2">
+        <h1 className="text-2xl font-bold text-navyblue-dark dark:text-pastelgreen">Room Details</h1>
+        <div className="flex md:flex-row flex-col gap-2 *:cursor-pointer">
           {isEditing ? (
             <AlertBox Check="Cancel" onDelete={() => onBack()} />
           ) : (

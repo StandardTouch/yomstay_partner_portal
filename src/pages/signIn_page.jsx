@@ -78,18 +78,18 @@ const SignInPage = () => {
           </h2>
           {!resetMode ? (
             <form onSubmit={handleSubmit}>
-              <label className="block mb-1 text-sm">Email</label>
+              <label className="block mb-1 text-sm text-black">Email</label>
               <input
                 type="email"
-                className="w-full mb-4 px-3 py-2 border rounded"
+                className="w-full mb-4 px-3 py-2 border rounded text-black dark:border-black"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <label className="block mb-1 text-sm">Password</label>
+              <label className="block mb-1 text-sm text-black">Password</label>
               <input
                 type="password"
-                className="w-full mb-2 px-3 py-2 border rounded"
+                className="w-full mb-2 px-3 py-2 border rounded text-black dark:border-black"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -114,13 +114,13 @@ const SignInPage = () => {
             </form>
           ) : (
             <div>
-              <h3 className="text-xl font-semibold mb-4">Reset Password</h3>
+              <h3 className="text-xl font-semibold mb-4 text-black">Reset Password</h3>
               {!successfulCreation ? (
                 <>
-                  <label className="block mb-1 text-sm">Email</label>
+                  <label className="block mb-1 text-sm text-black">Email</label>
                   <input
                     type="email"
-                    className="w-full mb-4 px-3 py-2 border rounded"
+                    className="w-full mb-4 px-3 py-2 border rounded text-black dark:border-black"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -134,18 +134,18 @@ const SignInPage = () => {
                 </>
               ) : (
                 <>
-                  <label className="block mb-1 text-sm">Reset Code</label>
+                  <label className="block mb-1 text-sm text-black">Reset Code</label>
                   <input
                     type="text"
-                    className="w-full mb-2 px-3 py-2 border rounded"
+                    className="w-full mb-2 px-3 py-2 border rounded text-black dark:border-black"
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
                     required
                   />
-                  <label className="block mb-1 text-sm">New Password</label>
+                  <label className="block mb-1 text-sm text-black">New Password</label>
                   <input
                     type="password"
-                    className="w-full mb-4 px-3 py-2 border rounded"
+                    className="w-full mb-4 px-3 py-2 border rounded text-black dark:border-black"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required

@@ -143,8 +143,8 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
     <div className="w-full bg-inherit flex flex-col gap-4 pb-10">
       {showRoom && (
         <div className="flex flex-col md:flex-row justify-between w-full">
-          <h1 className="text-2xl font-bold mb-6">Update Hotel</h1>
-          <div className="flex flex-row gap-2 ">
+          <h1 className="text-2xl font-bold mb-6 text-navyblue-dark dark:text-pastelgreen">Update Hotel</h1>
+          <div className="flex flex-row gap-2 *:cursor-pointer ">
             <Button onClick={() => setShow(false)}>Cancel</Button>
             <Button onClick={addHotel}>Update</Button>
           </div>
@@ -174,7 +174,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
           <TabsContent value="images" className="border rounded-md p-2">
             <div className="flex flex-col gap-2 p-1">
               <div className="flex flex-col md:flex-row justify-between md:items-center gap-2">
-                <h2 className="text-2xl font-semibold">Images</h2>
+                <h2 className="text-2xl font-semibold text-navyblue-dark dark:text-pastelgreen">Images</h2>
               </div>
               <div className="flex flex-col gap-2">
                 <p>Featured Image</p>
@@ -244,7 +244,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
             value="details"
             className="flex flex-col gap-2 border rounded-md p-3"
           >
-            <h2 className="text-2xl font-semibold">Details</h2>
+            <h2 className="text-2xl font-semibold text-navyblue-dark dark:text-pastelgreen">Details</h2>
             <div className="flex flex-col gap-2">
               <label className="text-lg">Name</label>
               <Input
@@ -305,7 +305,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
             value="address"
             className="flex flex-col gap-2 border rounded-md p-3"
           >
-            <h2 className="text-2xl font-semibold">Address</h2>
+            <h2 className="text-2xl font-semibold text-navyblue-dark dark:text-pastelgreen">Address</h2>
             <div className="flex flex-col w-full gap-2 mt-2">
               <div className="flex flex-col md:flex-row w-full *:w-full gap-2">
                 <div className="flex flex-col gap-2 ">
@@ -370,7 +370,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
           >
             <div className="flex flex-wrap gap-2 justify-between mt-2">
               <div className="flex justify-between items-center gap-2 w-full">
-                <h2 className="text-2xl font-semibold">Amenities</h2>
+                <h2 className="text-2xl font-semibold text-navyblue-dark dark:text-pastelgreen">Amenities</h2>
                 <AddButton
                   buttonValue="Add Amenities"
                   onAdd={() => setModal({ open: true, type: "amenity" })}
@@ -399,7 +399,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
           >
             <div>
               <div className="flex justify-between items-center gap-2 mb-2">
-                <h2 className="text-2xl font-semibold">Faq</h2>
+                <h2 className="text-2xl font-semibold text-navyblue-dark dark:text-pastelgreen">Faq</h2>
                 <AddButton
                   buttonValue="Add Faq"
                   onAdd={() => setModal({ open: true, type: "faq" })}
@@ -433,7 +433,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
             className="flex flex-col gap-2 border rounded-md p-3"
           >
             <div>
-              <h2 className="text-2xl font-semibold">Reviews</h2>
+              <h2 className="text-2xl font-semibold text-navyblue-dark dark:text-pastelgreen">Reviews</h2>
             </div>
             <div className="flex flex-col gap-2">
               {fields.reviews.map((review, idx) => (
@@ -449,7 +449,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
             <div className="flex flex-wrap gap-2 justify-between mt-2">
               {showRoom && (
                 <div className="flex justify-between items-center gap-2 w-full">
-                  <h2 className="text-2xl font-semibold">Rooms</h2>
+                  <h2 className="text-2xl font-semibold text-navyblue-dark dark:text-pastelgreen">Rooms</h2>
                   <AddButton
                     buttonValue="Add Room"
                     onAdd={() => setModal({ open: true, type: "room" })}
@@ -603,7 +603,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
               {modal.type === "faq" && (
                 <Button
                   type="submit"
-                  className="w-full cursor-pointer"
+                  className="w-full cursor-pointer bg-pastelgreen text-navyblue-dark hover:bg-pastelgreen-dark"
                   onClick={handleAddFaq}
                 >
                   Add Faq
@@ -612,7 +612,7 @@ function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
               {modal.type === "amenity" && (
                 <Button
                   type="submit"
-                  className="w-full cursor-pointer"
+                  className="w-full cursor-pointer bg-pastelgreen text-navyblue-dark hover:bg-pastelgreen-dark"
                   onClick={handleAddAmenity}
                 >
                   Add Amenities

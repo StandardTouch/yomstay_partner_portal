@@ -46,7 +46,7 @@ function Room({
               {/* room details */}
               <div className="flex flex-col gap-2 items-center border-2 rounded-md p-2 w-full *:border-b-2 *:w-full *:last:border-b-0">
                 <div>
-                  <h2 className="text-sm font-medium">Room Type</h2>
+                  <h2 className="text-sm font-medium ">Room Type</h2>
                   <h2 className="text-lg font-medium ">{room.roomType}</h2>
                 </div>
                 <div className="flex flex-row gap-2 *:w-full">

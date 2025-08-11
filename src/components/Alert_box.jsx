@@ -21,7 +21,7 @@ function AlertBox({ onDelete, Check, hotelName }) {
         }`}
       >
         <div
-          className={`cursor-pointer bg-red-500 hover:bg-red-700 text-white rounded-2xl
+          className={`cursor-pointer bg-red-500 hover:bg-red-700 scale-90 hover:scale-100 transition-all duration-150 text-white rounded-2xl
                     ${
                       Check === "Hotel" &&
                       " px-2 py-1 md:py-2 md:px-2.5 rounded-md absolute bottom-2 right-2"

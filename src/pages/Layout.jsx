@@ -31,27 +31,28 @@ function LayoutContent({ children }) {
       <div className="flex-1 flex flex-col">
         {/* Header */}
         <header
-          className="h-16 fixed  top-0 flex w-full z-50 shadow-md justify-center items-center px-4 bg-card text-card-foreground"
+          className="h-16 fixed top-0 flex w-full z-50 shadow-md justify-center items-center px-4 bg-card text-card-foreground"
           // style={{ backgroundColor: "#e0ecf9" }} // ✅ Solid background color
         >
         {/* <header className="sticky top-0 left-0 right-0 flex items-center justify-between px-4 py-4 bg-card text-card-foreground border-b shadow-sm z-40 rounded-none"> */}
-          <div className="flex items-center gap-4 w-full relative">
-            <button
-              onClick={toggleSidebar}
-              className="p-2 rounded hover:outline-2 hover:outline-gray-500 "
-              aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
-              // style={{ color: "var(--color-navyblue)" }}
-            >
-              {/* <FaBars className="w-5 h-5 text-slate-800" /> */}
-              <FaBars className="w-5 h-5 " />
-            </button>
+          <div className="flex items-center gap-4 w-full ">
+            <div className="flex items-center gap-2 ">
+              <button
+                onClick={toggleSidebar}
+                className="p-2 rounded hover:outline-2 hover:outline-gray-500 "
+                aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
+                // style={{ color: "var(--color-navyblue)" }}
+              >
+                {/* <FaBars className="w-5 h-5 text-slate-800" /> */}
+                <FaBars className="w-5 h-5 " />
+              </button>
             <div
-              className="text-1.5xl md:text-3xl font-semibold absolute right-1/2 "
-              style={{ fontFamily: "jetbrains mono" }}
+              className="text-1.5xl md:text-3xl font-bold font-maisonnene"
             >
-              Partner Portal
+              Yomstay
             </div>
-            <div className="flex items-center gap-4 absolute right-0 md:right-15">
+            </div>
+            <div className="flex items-center gap-4 fixed right-5 md:right-15 ">
               {/* <DarkModeSwitch
                 checked={isDark}
                 onChange={toggleTheme}

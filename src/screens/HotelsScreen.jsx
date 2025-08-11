@@ -422,7 +422,7 @@ export default function HotelsScreen() {
       {/* Header */}
       {!show && (
         <div className="mb-6 flex justify-between">
-          <h1 className="text-2xl font-bold ">Hotels</h1>
+          <h1 className="text-2xl font-bold text-navyblue-dark dark:text-pastelgreen">Hotels</h1>
           {/* <AddButton buttonValue="Add Hotel" onAdd={() => setAddOpen(true)} /> */}
         </div>
       )}
@@ -444,7 +444,7 @@ export default function HotelsScreen() {
           {hotellist.map((hotel) => (
             <Card
               key={hotel.id}
-              className="min-[800px]:flex-col min-[1010px]:flex-row flex-col gap-2 px-2 py-3 shadow-sm hover:shadow-muted-foreground duration-300 transition-shadow cursor-pointer relative"
+              className=" text-navyblue-dark dark:text-pastelgreen min-[800px]:flex-col min-[1010px]:flex-row flex-col gap-2 px-2 py-3 shadow-sm hover:shadow-muted-foreground duration-300 transition-shadow cursor-pointer relative"
               onClick={() => {
                 setHotelIndex(hotellist.indexOf(hotel));
               }}
@@ -472,7 +472,7 @@ export default function HotelsScreen() {
                       {hotel.name}
                     </CardTitle>
 
-                    <Badge variant="secondary">⭐ {hotel.starRating}</Badge>
+                    <Badge variant="secondary" className="bg-pastelgreen dark:text-black">⭐ {hotel.starRating}</Badge>
                   </div>
                   <div className="border-t-2 pt-1 ">
                     <p className="font-medium">Description</p>
