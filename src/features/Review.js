@@ -1,0 +1,68 @@
+const reviews = [
+  {
+    id: 1,
+    icon: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    name: "John Doe",
+    rating: 4,
+    comment: "Great service! Highly recommended.",
+    date: "2023-10-01",
+  },
+  {
+    id: 2,
+    icon: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    name: "Jane Smith",
+    rating: 5,
+    comment: "Excellent hotel! Clean and comfortable rooms.",
+    date: "2023-10-02",
+  },
+  {
+    id: 3,
+    icon: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    name: "Alice Johnson",
+    rating: 3,
+    comment: "Average experience. Could be better.",
+    date: "2023-10-03",
+  },
+  {
+    id: 4,
+    icon: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    name: "Bob Brown",
+    rating: 2.5,
+    comment: "Not satisfied with the service.",
+    date: "2023-10-04",
+  },
+  {
+    id: 5,
+    icon: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    name: "Charlie White",
+    rating: 4,
+    comment: "Good value for money. Clean rooms.",
+    date: "2023-10-05",
+  },
+  {
+    id: 6,
+    icon: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    name: "Emily Davis",
+    rating: 5,
+    comment: "Excellent hotel! Clean and comfortable rooms.",
+    date: "2023-10-06",
+  },
+  {
+    id: 7,
+    icon: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    name: "Frank Wilson",
+    rating: 3,
+    comment: "Average experience. Could be better.",
+    date: "2023-10-07",
+  },
+  {
+    id: 8,
+    icon: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    name: "Grace Lee",
+    rating: 2,
+    comment: "Not satisfied with the service.",
+    date: "2023-10-08",
+  },
+];
+
+export default reviews;

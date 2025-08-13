@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Home, Hotel, Inbox } from "lucide-react";
+import { Home, Hotel, Inbox, Book } from "lucide-react";
 import { FaHotel } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
@@ -31,22 +31,21 @@ const items = [
     url: "/hotel",
     icon: Hotel,
   },
-  // {
-  //   title: "RoomDetail",
-  //   url: "/roomdetail",
-  //   icon: Inbox,
-  // },
-  
+  {
+    title: "Booking List",
+    url: "/bookinglist",
+    icon: Book,
+  },
+  {
+    title: "Customer Reviews",
+    url: "/review",
+    icon: Inbox,
+  },
 ];
 
 export function AppSidebar() {
-  const {
-    open,
-    openMobile,
-    setOpenMobile,
-    isMobile,
-    toggleSidebar,
-  } = useSidebar();
+  const { open, openMobile, setOpenMobile, isMobile, toggleSidebar } =
+    useSidebar();
 
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -70,7 +69,9 @@ export function AppSidebar() {
 
   const smallLogoSrc = useMemo(() => {
     if (!mounted) return "";
-    return resolvedTheme === "dark" ? "/logo_small_white.png" : "/logo_small_black.png";
+    return resolvedTheme === "dark"
+      ? "/logo_small_white.png"
+      : "/logo_small_black.png";
   }, [resolvedTheme, mounted]);
 
   return (
@@ -82,8 +83,7 @@ export function AppSidebar() {
             <div />
             <div>
               {/* <FaHotel className="w-5 h-5" /> */}
-                            <img src={logoSrc} alt="Logo Small" className="w-32" />
-
+              <img src={logoSrc} alt="Logo Small" className="w-32" />
             </div>
             <div>
               <MdClose
@@ -97,7 +97,9 @@ export function AppSidebar() {
         {/* Sidebar Header for Desktop */}
         {!openMobile && (
           <SidebarHeader
-            className={`flex items-center space-x-2 ${open ? "px-3 py-2" : "px-2"}`}
+            className={`flex items-center space-x-2 ${
+              open ? "px-3 py-2" : "px-2"
+            }`}
           >
             {open ? (
               <img src={logoSrc} alt="Logo" className="w-full" />
@@ -113,7 +115,10 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem onClick={openMobile? toggleSidebar : null} key={item.title}>
+                <SidebarMenuItem
+                  onClick={openMobile ? toggleSidebar : null}
+                  key={item.title}
+                >
                   <SidebarMenuButton asChild>
                     <Link to={item.url}>
                       <item.icon />

@@ -20,12 +20,12 @@ import {
 export const description = "A line chart with a label";
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 205, mobile: 100 },
+  { month: "January", desktop: 316, mobile: 80 },
+  { month: "February", desktop: 255, mobile: 100 },
   { month: "March", desktop: 337, mobile: 220 },
-  { month: "April", desktop: 473, mobile: 290 },
-  { month: "May", desktop: 509, mobile: 330 },
-  { month: "June", desktop: 514, mobile: 340 },
+  { month: "April", desktop: 373, mobile: 290 },
+  { month: "May", desktop: 309, mobile: 330 },
+  { month: "June", desktop: 414, mobile: 340 },
 ];
 
 const chartConfig = {
@@ -39,7 +39,7 @@ export function ChartLineLabel() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Revenue Chart</CardTitle>
+        <CardTitle className="text-xl font-semibold ">Revenue Chart</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>

@@ -20,9 +20,9 @@ import {
 export const description = "A donut chart with text";
 
 const chartData = [
-  { browser: "Confirmed", visitors: 100, fill: "#4ade80" },
-  { browser: "Pending", visitors: 43, fill: "#fbbf24" },
-  { browser: "Cancelled", visitors: 15, fill: "#f87171" },
+  { browser: "Confirmed", visitors: 100, fill: "#008236" },
+  { browser: "Pending", visitors: 43, fill: "#fe9a00" },
+  { browser: "Cancelled", visitors: 15, fill: "#fb2c36" },
 ];
 
 const chartConfig = {
@@ -40,9 +40,11 @@ export function ChartPieDonutText() {
 
   return (
     <div>
-      <Card className="flex flex-col w-full h-full">
+      <Card className="flex flex-col w-full h-full ">
         <CardHeader className="items-center pb-0">
-          <CardTitle className="text-xl font-semibold"> Booking Chart </CardTitle>
+          <CardTitle className="text-xl font-semibold ">
+            Booking Chart
+          </CardTitle>
           {/* <CardDescription>January - June 2024</CardDescription> */}
         </CardHeader>
         <CardContent className="flex-1 pb-0">
@@ -103,10 +105,10 @@ export function ChartPieDonutText() {
           </ChartContainer>
         </CardContent>
         <CardFooter className="flex-col gap-2 text-sm">
-        <div className="text-muted-foreground leading-none">
-          Showing total visitors 
-        </div>
-      </CardFooter>
+          <div className="text-muted-foreground leading-none">
+            Showing total visitors
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );

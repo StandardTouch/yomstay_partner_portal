@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { ModeToggle } from "../components/ui/mode-toggle";
 import { useTheme } from "next-themes";
+import {NovuInbox} from '@/components/ui/inbox/NovuInbox';
 
 function LayoutContent({ children }) {
   const { toggleSidebar, open } = useSidebar();
@@ -47,7 +48,7 @@ function LayoutContent({ children }) {
                 <FaBars className="w-5 h-5 " />
               </button>
             <div
-              className="text-1.5xl md:text-3xl font-bold font-maisonnene"
+              className="text-1xl md:text-2xl font-bold font-maisonnene"
             >
               Yomstay
             </div>
@@ -61,6 +62,7 @@ function LayoutContent({ children }) {
               /> */}
               <ModeToggle />
               <UserButton signOutRedirectUrl="/login" />
+              <NovuInbox  />
             </div>
           </div>
         </header>

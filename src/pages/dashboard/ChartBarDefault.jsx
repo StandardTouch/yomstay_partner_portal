@@ -37,31 +37,21 @@ export function ChartBarDefault() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Booking Chart</CardTitle>
+        <CardTitle className="text-xl font-semibold ">Booking Chart</CardTitle>
         <CardDescription>Details</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-0">
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="name"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-            //   tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <YAxis
-              dataKey="value"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-            //   tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent  />}
-            />
+          <BarChart
+            accessibilityLayer
+            data={chartData}
+            layout="vertical"
+            className="p-8"
+          >
+            <CartesianGrid />
+            <XAxis type="number" className="font-semibold" />
+            <YAxis dataKey="name" className="font-semibold" type="category" />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Bar dataKey="value" fill="var(--color-desktop)" radius={8} />
           </BarChart>
         </ChartContainer>
