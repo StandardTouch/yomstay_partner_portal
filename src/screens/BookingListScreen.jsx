@@ -8,7 +8,7 @@ function BookingListScreen() {
   return (
     <Card className="w-full h-full p-6">
       <h1 className="text-2xl font-bold mb-4">Booking Details</h1>
-      <BookingTable showAllBookings={booking.length} bookings={booking} />
+      <BookingTable showAllBookings={booking.length} bookings={booking} viewAll={true} />
     </Card>
   );
 }

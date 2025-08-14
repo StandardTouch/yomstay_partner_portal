@@ -5,18 +5,18 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
 
-function ReviewCard({ reviews, showAllReviews }) {
+function ReviewCard({ reviews, showAllReviews, viewAll }) {
   return (
     <Card className="p-6 rounded-lg md:col-span-2 col-span-1 ">
       <div className=" flex justify-between items-center mb-2">
         <h2
           className={`${
-            showAllReviews === 4 && "text-xl font-semibold"
+            viewAll && "text-xl font-semibold"
           } text-2xl font-bold  `}
         >
           Reviews
         </h2>
-        {showAllReviews === 4 && (
+        {viewAll && (
           <Link to="/review">
             <Button variant="outline" className="text-sm cursor-pointer">
               View All

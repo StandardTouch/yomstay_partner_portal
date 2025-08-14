@@ -83,8 +83,8 @@ function Room({
                 {/* room description */}
                 <div>
                   <h2 className="text-sm font-medium">Room Description</h2>
-                  <p className="text-sm mb-8 font-medium h-10 overflow-hidden">
-                    {room.roomDescription}
+                  <p className="text-sm mb-8 font-medium">
+                    {room.roomDescription.slice(0, 150)}...
                   </p>
                 </div>
               </div>

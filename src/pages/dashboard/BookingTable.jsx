@@ -10,20 +10,22 @@ import {
 } from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
+import AlertBox from "../../components/Alert_box";
 
-function BookingTable({ showAllBookings, bookings }) {
+function BookingTable({ showAllBookings, bookings, viewAll }) {
   return (
     <Table>
       <TableHeader>
         <TableRow className="bg-gray-100 dark:bg-gray-800 *:border">
           <TableHead>No</TableHead>
           <TableHead>Name</TableHead>
-          {showAllBookings !== 5 && <TableHead>Phone</TableHead>}
+          {viewAll && <TableHead>Phone</TableHead>}
           <TableHead>Room Type</TableHead>
           <TableHead>Check-in Date</TableHead>
           <TableHead>Check-out Date</TableHead>
-          {showAllBookings !== 5 && <TableHead>Payment Status</TableHead>}
+          {viewAll && <TableHead>Payment Status</TableHead>}
           <TableHead>Status</TableHead>
+          {viewAll && <TableHead>Booking</TableHead>}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -36,7 +38,7 @@ function BookingTable({ showAllBookings, bookings }) {
             <TableCell className="font-medium w-[120px]">
               {booking.name}
             </TableCell>
-            {showAllBookings !== 5 && (
+            {viewAll && (
               <TableCell className="text-wrap w-[150px]">
                 <a
                   href={`tel:${booking.phone}`}
@@ -51,7 +53,7 @@ function BookingTable({ showAllBookings, bookings }) {
             </TableCell>
             <TableCell>{booking.checkin}</TableCell>
             <TableCell>{booking.checkout}</TableCell>
-            {showAllBookings !== 5 && (
+            {viewAll && (
               <TableCell>
                 <Button
                   className={` min-w-[100px] capitalize dark:text-white ${
@@ -77,6 +79,20 @@ function BookingTable({ showAllBookings, bookings }) {
                 {booking.status}
               </Button>
             </TableCell>
+            {viewAll && (
+              <TableCell>
+                {booking.status !== "Cancelled" ? (
+                  <div className="flex gap-2 w-fit my-0 mx-auto ">
+                    <AlertBox onDelete={() => {}} Check="Approve" />
+                    <AlertBox onDelete={() => {}} Check="Reject" />
+                  </div>
+                ) : (
+                  <div className="flex gap-2 w-fit my-0 mx-auto text-red-500">
+                    Cancelled
+                  </div>
+                )}
+              </TableCell>
+            )}
           </TableRow>
         ))}
       </TableBody>

@@ -1,5 +1,5 @@
 import React from "react";
-import { X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,6 +12,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+const Checks = Check;
+
 function AlertBox({ onDelete, Check, hotelName }) {
   return (
     <AlertDialog>
@@ -21,7 +23,11 @@ function AlertBox({ onDelete, Check, hotelName }) {
         }`}
       >
         <div
-          className={`cursor-pointer bg-red-500 hover:bg-red-700 scale-90 hover:scale-100 transition-all duration-150 text-white rounded-2xl
+          className={`cursor-pointer ${
+            Check === "Approve"
+              ? "bg-green-500 hover:bg-green-700"
+              : "bg-red-500 hover:bg-red-700"
+          } scale-90 hover:scale-100 transition-all duration-150 text-white rounded-2xl
                     ${
                       Check === "Hotel" &&
                       " px-2 py-1 md:py-2 md:px-2.5 rounded-md absolute bottom-2 right-2"
@@ -38,12 +44,17 @@ function AlertBox({ onDelete, Check, hotelName }) {
                       Check === "Faq" &&
                       " px-2 py-1 text-sm rounded-md absolute top-2 right-2"
                     }
+                    ${Check === "Reject" && " p-0.5 rounded-2xl"}
+                    ${Check === "Approve" && " p-0.5 rounded-2xl"}
                     ${Check === "Amenity" && "p-0.5 rounded-2xl"}
                     ${Check === "Image" && "p-1 rounded-2xl"}`}
         >
           {Check === "Cancel" && "Cancel Chages"}
           {Check === "Room" && " Delete Room"}
-          {(Check === "Amenity" || Check === "Image") && <X size={16} />}
+          {Check === "Approve" && <Checks size={16} />}
+          {(Check === "Amenity" || Check === "Image" || Check === "Reject") && (
+            <X size={16} />
+          )}
           {(Check === "Hotel" || Check === "Faq") && `Remove ${Check}`}
         </div>
       </AlertDialogTrigger>
@@ -54,6 +65,11 @@ function AlertBox({ onDelete, Check, hotelName }) {
           {Check === "Cancel" ? (
             <AlertDialogDescription>
               This Chages will not be saved
+            </AlertDialogDescription>
+          ) : Check === "Reject" || Check === "Approve" ? (
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently {Check} the
+              booking.
             </AlertDialogDescription>
           ) : (
             <AlertDialogDescription>
@@ -67,7 +83,11 @@ function AlertBox({ onDelete, Check, hotelName }) {
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            className="bg-red-500 hover:bg-red-700 text-white cursor-pointer"
+            className={`${
+              Check === "Approve"
+                ? "bg-green-500 hover:bg-green-700"
+                : "bg-red-500 hover:bg-red-700"
+            } text-white cursor-pointer`}
             onClick={onDelete}
           >
             Continue

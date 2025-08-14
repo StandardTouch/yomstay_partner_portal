@@ -53,7 +53,7 @@ function LayoutContent({ children }) {
               Yomstay
             </div>
             </div>
-            <div className="flex items-center gap-4 fixed right-5 md:right-15 ">
+            <div className="flex items-center gap-4 fixed right-5 md:right-5 ">
               {/* <DarkModeSwitch
                 checked={isDark}
                 onChange={toggleTheme}

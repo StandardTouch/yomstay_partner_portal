@@ -7,7 +7,7 @@ import { Card } from "../components/ui/card";
 import { Calendar as CalendarIcon, Hotel, LogIn, LogOut } from "lucide-react";
 import { ChartLineLabel } from "./dashboard/ChartLineLabel";
 import { ChartBarDefault } from "./dashboard/ChartBarDefault";
-import BookingList from "./dashboard/BookingList";
+import ReviewList from "./dashboard/ReviewList";
 import { Button } from "../components/ui/button";
 import BookingTable from "./dashboard/BookingTable";
 import bookings from "../features/BookingLsit";
@@ -64,11 +64,11 @@ const Dashboard = () => {
       </section>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mb-8 *:hover:shadow-lg *:hover:translate-y-[-10px] *:transition-all *:duration-300">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mb-8 *:hover:shadow-xl *:hover:translate-y-[-10px] *:transition-all *:duration-300">
         {cardsData.map((card, index) => (
           <Card
             key={index}
-            className="rounded-2xl p-6 shadow-xl text-white relative overflow-hidden hover:scale-[1.02] hover:shadow-2xl"
+            className="rounded-2xl p-6 text-white relative overflow-hidden hover:scale-[1.02] hover:shadow-2xl"
             style={{
               background: card.gradient,
               color: card.color || "#ffffff",
@@ -94,7 +94,7 @@ const Dashboard = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 *:hover:shadow-2xl *:hover:translate-y-[-10px] *:transition-all *:duration-300">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 *:hover:shadow-xl *:hover:translate-y-[-10px] *:transition-all *:duration-300">
         {/* Booking Trends */}
         <ChartBarDefault />
 
@@ -102,7 +102,7 @@ const Dashboard = () => {
         <ChartLineLabel />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 *:hover:shadow-2xl *:hover:translate-y-[-10px] *:transition-all *:duration-300">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 *:hover:shadow-xl *:hover:translate-y-[-10px] *:transition-all *:duration-300">
         <Card className="md:col-span-2 col-span-1 overflow-x-auto md:w-full md:p-6 p-2 rounded-lg gap-2 ">
           <div className=" flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold mb-4 ">Booking Details</h2>
@@ -112,10 +112,14 @@ const Dashboard = () => {
               </Button>
             </Link>
           </div>
-          <BookingTable showAllBookings={5} bookings={booking} />
+          <BookingTable
+            showAllBookings={5}
+            bookings={booking}
+            viewAll={false}
+          />
         </Card>
       </div>
-      <BookingList />
+      <ReviewList />
     </>
   );
 };

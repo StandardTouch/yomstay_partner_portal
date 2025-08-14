@@ -10,6 +10,7 @@ import BookingListScreen from "./screens/BookingListScreen";
 import { SidebarProvider } from "./components/ui/sidebar";
 import Layout from "./pages/Layout";
 import ReviewScreen from "./screens/ReviewScreen.jsx";
+import SettingScreen from "./screens/SettingScreen.jsx";
 
 // A wrapper component to protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -79,6 +80,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <ReviewScreen />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/settings",
+    element: (
+      <ProtectedRoute>
+        <SettingScreen />
       </ProtectedRoute>
     ),
   },

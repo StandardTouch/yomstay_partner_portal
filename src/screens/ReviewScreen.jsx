@@ -6,7 +6,7 @@ import ReviewCard from "./UpdateHotel/ReviewCard";
 function ReviewScreen() {
   const review = reviews;
   return (
-    <ReviewCard reviews={review} showAllReviews={review.length} />
+    <ReviewCard reviews={review} showAllReviews={review.length} viewAll={false} />
   );
 }
 

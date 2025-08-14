@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Home, Hotel, Inbox, Book } from "lucide-react";
+import { Home, Hotel, Inbox, Book, Settings } from "lucide-react";
 import { FaHotel } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { MdClose } from "react-icons/md";
@@ -40,6 +40,11 @@ const items = [
     title: "Customer Reviews",
     url: "/review",
     icon: Inbox,
+  },
+  {
+    title: "Settings",
+    url: "/settings",
+    icon: Settings,
   },
 ];
 
