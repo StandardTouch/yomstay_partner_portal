@@ -1,56 +1,44 @@
 name: 🚀 Shipping Build
-
 on:
   push:
-    branches: [ main ]
-
-permissions:
-  contents: read
-  packages: read   # <-- Needed if you use GITHUB_TOKEN to read GitHub Packages
+    branches:
+      - main
 
 jobs:
   FTP-Deploy-Action:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
 
-    env:
-      # Use either a PAT with read:packages (recommended) OR the built-in GITHUB_TOKEN.
-      # If using a PAT, create repo secret GH_PACKAGES_TOKEN and uncomment the first line.
-      # NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
-      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NODE_OPTIONS: "--max_old_space_size=4096"
-      CI: false
-
     steps:
       - name: 🚚 Get latest code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
 
       - name: Use Node.js 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 22
-          cache: 'npm'             # Better than caching node_modules
-          cache-dependency-path: '**/package-lock.json'
-          registry-url: 'https://registry.npmjs.org/'
+          node-version: "22"
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        id: cache-node-modules
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: 📄 Create .env file from GitHub Secrets
         run: |
           echo "VITE_CLERK_PUBLISHABLE_KEY=${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}" >> .env
           echo "NOVU_APP_ID=${{ secrets.NOVU_APP_ID }}" >> .env
 
-      - name: 🔐 Configure npm for GitHub Packages (scope-only)
-        run: |
-          echo "@StandardTouch:registry=https://npm.pkg.github.com" >> ~/.npmrc
-          echo "always-auth=true" >> ~/.npmrc
-          echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
-          # sanity checks (no secrets printed)
-          npm config get registry
-          npm config get @StandardTouch:registry
-
       - name: 🔨 Install Dependencies
-        run: npm ci
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: |
+          npm install
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+          CI: false
 
       - name: 🏗 Build Project
         run: npm run build
