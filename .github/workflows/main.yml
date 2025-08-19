@@ -46,7 +46,7 @@ jobs:
       - name: 📂 Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
-          server: ftp.partner.yomstay.com
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }} # mubashir@partner.yomstay.com
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps # 👈 explicit FTPS
