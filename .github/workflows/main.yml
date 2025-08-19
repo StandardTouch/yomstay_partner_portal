@@ -43,14 +43,14 @@ jobs:
       - name: 🏗 Build Project
         run: npm run build
 
-      - name: 📂 Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: 📂 Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
-          host: ${{ secrets.FTP_SERVER }}     # hostname only (no sftp://)
-          port: 22
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}  # or use ssh-private-key: ${{ secrets.SSH_KEY }}
-          local_path: dist/*
-          remote_path: /path/on/server/        # adjust
-          sftpArgs: "-o StrictHostKeyChecking=no"
+          server: ftp.partner.yomstay.com
+          username: ${{ secrets.FTP_USERNAME }} # mubashir@partner.yomstay.com
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps # 👈 explicit FTPS
+          port: 21
+          local-dir: dist/ # where vite build outputs
+          server-dir: /public_html/ # target folder on server
 
