@@ -409,7 +409,6 @@ export default function HotelsScreen() {
           <h1 className="text-2xl font-bold text-navyblue-dark dark:text-pastelgreen">
             Hotels
           </h1>
-          {/* <AddButton buttonValue="Add Hotel" onAdd={() => setAddOpen(true)} /> */}
         </div>
       )}
 
