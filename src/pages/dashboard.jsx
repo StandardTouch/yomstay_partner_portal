@@ -51,7 +51,7 @@ const Dashboard = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="rounded-2xl mb-10 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg bg-navyblue-dark text-white">
+      <section className="rounded-2xl mb-10 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg bg-lavender-dark text-white">
         <div>
           <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white capitalize">
             Welcome, {user.firstName || "Partner"} {user.lastName || ""}
