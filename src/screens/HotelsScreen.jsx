@@ -1,30 +1,14 @@
 import React, { use, useState } from "react";
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import UpdateHotel from "./UpdateHotel";
-import { Hand, Plus, Upload } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetFooter,
-  SheetClose,
-} from "@/components/ui/sheet";
 import AlertBox from "../components/Alert_box";
-import AddButton from "../components/AddButton.jsx";
-import { SidebarProvider } from "../components/ui/sidebar";
-import Layout from "../pages/Layout";
 
 export default function HotelsScreen() {
   const Hotels = [
@@ -422,7 +406,9 @@ export default function HotelsScreen() {
       {/* Header */}
       {!show && (
         <div className="mb-6 flex justify-between">
-          <h1 className="text-2xl font-bold text-navyblue-dark dark:text-pastelgreen">Hotels</h1>
+          <h1 className="text-2xl font-bold text-navyblue-dark dark:text-pastelgreen">
+            Hotels
+          </h1>
           {/* <AddButton buttonValue="Add Hotel" onAdd={() => setAddOpen(true)} /> */}
         </div>
       )}
@@ -472,7 +458,12 @@ export default function HotelsScreen() {
                       {hotel.name}
                     </CardTitle>
 
-                    <Badge variant="secondary" className="bg-pastelgreen dark:text-black">⭐ {hotel.starRating}</Badge>
+                    <Badge
+                      variant="secondary"
+                      className="bg-pastelgreen dark:text-black"
+                    >
+                      ⭐ {hotel.starRating}
+                    </Badge>
                   </div>
                   <div className="border-t-2 pt-1 ">
                     <p className="font-medium">Description</p>

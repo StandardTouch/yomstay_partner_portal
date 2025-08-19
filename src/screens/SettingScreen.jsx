@@ -1,6 +1,5 @@
 import React from "react";
 import SecuritySettings from "./Setting/SecuritySettings";
-import AccountSetting from "./Setting/AccountSetting";
 
 function SettingScreen() {
   return (
@@ -9,7 +8,6 @@ function SettingScreen() {
         <h1 className="text-2xl font-bold ">General Settings</h1>
       </div>
       <div className="">
-        {/* <AccountSetting /> */}
         <SecuritySettings />
       </div>
     </div>
