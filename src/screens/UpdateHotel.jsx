@@ -39,7 +39,6 @@ import AddButton from "../components/AddButton";
 import DragDrop from "./UpdateHotel/dragbox";
 import Room from "./UpdateHotel/Room";
 import AddRoom from "./UpdateHotel/AddRoom";
-import AlertBox from "../components/Alert_box";
 
 function UpdateHotel({ hotel, setShow, onAddHotel, defaultAmenities }) {
   const [fields, setFields] = useState({
